@@ -1,0 +1,42 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "@inertiajs/inertia": "^0.10.0",
+        "@inertiajs/inertia-vue3": "^0.5.1",
+        "@inertiajs/progress": "^0.2.6",
+        "@popperjs/core": "^2.5.3",
+        "@tailwindcss/forms": "^0.2.1",
+        "@tailwindcss/typography": "^0.3.0",
+        "@vue/compiler-sfc": "^3.0.5",
+        "alpinejs": "^3.2.6",
+        "axios": "^0.21",
+        "laravel-mix": "^6.0.41",
+        "lodash": "^4.17.19",
+        "postcss": "^8.1.14",
+        "postcss-import": "^12.0.1",
+        "resolve-url-loader": "^4.0.0",
+        "sass": "^1.43.4",
+        "sass-loader": "^12.1.0",
+        "tailwindcss": "^2.0.1",
+        "vue": "^3.0.5",
+        "vue-loader": "^16.1.2"
+    },
+    "dependencies": {
+        "@element-plus/icons": "0.0.11",
+        "@element-plus/icons-vue": "^0.2.6",
+        "element-plus": "^1.1.0-beta.24",
+        "moment": "^2.29.1",
+        "numeral": "^2.0.6",
+        "vue-clipboard3": "^1.0.1",
+        "vue-numerals": "^4.0.6"
+    }
+}
