@@ -122,11 +122,7 @@
 						</div>
 					</div> -->
                             <slot></slot>
-                    <div class="row">
-						<div class="col-sm-12">
-							Contents here
-						</div>			
-					</div>
+                  
                 </div>
             </div>
         </div>
