@@ -100,6 +100,21 @@
                                 <img :src="url + '/assets/img/icons/dashboard.svg'" alt="img"><span> Dashboard</span> 
                                 </Link>
                             </li>
+							<li class="submenu">
+								<a href="javascript:void(0);"><img :src="url + '/assets/img/icons/product.svg'" alt="img"><span> Productos</span> <span class="menu-arrow"></span></a>
+								<ul>
+									<li><a href="#">Product List</a></li>
+									<li><a href="#">Agregar Producto</a></li>
+									<li><Link :href="route('category.index')" >Lista de Categorias</Link></li>
+									<li><Link :href="route('category.create')" >Agregar Categorias</Link></li>
+									<li><a href="#">Sub Category List</a></li>
+									<li><a href="#">Add Sub Category</a></li>
+									<li><a href="#">Brand List</a></li>
+									<li><a href="#">Add Brand</a></li>
+									<li><a href="#">Import Products</a></li>
+									<li><a href="#">Print Barcode</a></li>
+								</ul>
+							</li>
                          
                           
                         </ul>
