@@ -68,7 +68,13 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return Inertia::render('Category/Edit',[
+            'category'=>$category,
+
+  
+            
+
+        ]);
     }
 
     /**
@@ -80,7 +86,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+        $category->update($request->all());
+        return redirect()->route('category.index')->with('success','Category updated successfully');
     }
 
     /**

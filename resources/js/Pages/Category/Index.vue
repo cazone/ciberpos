@@ -26,13 +26,14 @@
 
             <el-table-column fixed="right" label="" width="180">
                 <template #default="scope">
-
+                  <Link :href="route('category.edit', scope.row.id)"  >
                     <el-button
-                        @click="showDialogEditar(scope.row)"
+                    class="me-1"
                          size="mini"
                          type="primary">
                       Editar
                     </el-button>
+                    </Link>
                     <el-button
                      type="danger"
                          size="mini"

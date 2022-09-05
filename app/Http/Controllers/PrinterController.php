@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Printer;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,10 @@ class PrinterController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Printer/Index',[
+            'printers'=>Printer::paginate(10),
+
+        ]);
     }
 
     /**
@@ -24,7 +28,7 @@ class PrinterController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Category/Create',[
+        return Inertia::render('Printer/Create',[
             
 
         ]);
@@ -38,7 +42,11 @@ class PrinterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+        Printer::create($request->all());
+        return redirect()->route('printer.index')->with('success','Printer created successfully.');
     }
 
     /**
@@ -60,7 +68,9 @@ class PrinterController extends Controller
      */
     public function edit(Printer $printer)
     {
-        //
+        return Inertia::render('Printer/Edit',[
+            'printer'=>$printer,
+        ]);
     }
 
     /**
@@ -72,7 +82,11 @@ class PrinterController extends Controller
      */
     public function update(Request $request, Printer $printer)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+        $printer->update($request->all());
+        return redirect()->route('printer.index')->with('success','Printer updated successfully');
     }
 
     /**
@@ -83,6 +97,7 @@ class PrinterController extends Controller
      */
     public function destroy(Printer $printer)
     {
-        //
+        $printer->delete();
+        return redirect()->back()->with('success','Printer deleted successfully');
     }
 }

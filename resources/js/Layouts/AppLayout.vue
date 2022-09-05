@@ -107,8 +107,8 @@
 									<li><a href="#">Agregar Producto</a></li>
 									<li><Link :href="route('category.index')" >Lista de Categorias</Link></li>
 									<li><Link :href="route('category.create')" >Agregar Categorias</Link></li>
-									<li><a href="#">Sub Category List</a></li>
-									<li><a href="#">Add Sub Category</a></li>
+									<li><Link :href="route('printer.index')" >Lista de impresoras</Link></li>
+									<li><Link :href="route('printer.create')" >Agregar impresora</Link></li>
 									<li><a href="#">Brand List</a></li>
 									<li><a href="#">Add Brand</a></li>
 									<li><a href="#">Import Products</a></li>
