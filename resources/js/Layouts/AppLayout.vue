@@ -78,10 +78,10 @@
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <Link :href="route('profile.show')" >
-                        <a class="dropdown-item">My Profile</a>
+                        <a class="dropdown-item">Mi Perfil</a>
                         </Link>
                       <jet-dropdown-link as="button">
-                        <a class="dropdown-item" >Logout</a>
+                        <a class="dropdown-item" >Salir</a>
                         </jet-dropdown-link>
                     </div>
                 </div>
@@ -103,16 +103,12 @@
 							<li class="submenu">
 								<a href="javascript:void(0);"><img :src="url + '/assets/img/icons/product.svg'" alt="img"><span> Productos</span> <span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="#">Product List</a></li>
-									<li><a href="#">Agregar Producto</a></li>
+									
 									<li><Link :href="route('category.index')" >Lista de Categorias</Link></li>
 									<li><Link :href="route('category.create')" >Agregar Categorias</Link></li>
 									<li><Link :href="route('printer.index')" >Lista de impresoras</Link></li>
 									<li><Link :href="route('printer.create')" >Agregar impresora</Link></li>
-									<li><a href="#">Brand List</a></li>
-									<li><a href="#">Add Brand</a></li>
-									<li><a href="#">Import Products</a></li>
-									<li><a href="#">Print Barcode</a></li>
+									
 								</ul>
 							</li>
                          
