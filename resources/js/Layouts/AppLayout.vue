@@ -6,7 +6,7 @@
 
             <!-- Header -->
             <div class="header">
-            
+
                 <!-- Logo -->
                  <div class="header-left active">
                   <Link :href="route('dashboard')">
@@ -23,7 +23,7 @@
                     </a>
                 </div>
                 <!-- /Logo -->
-                
+
                 <a id="mobile_btn" class="mobile_btn" href="#sidebar">
                     <span class="bar-icon">
                         <span></span>
@@ -31,14 +31,14 @@
                         <span></span>
                     </span>
                 </a>
-                
+
                 <!-- Header Menu -->
                 <ul class="nav user-menu">
-                
-    
-                
-               
-                    
+
+
+
+
+
 
                     <li class="nav-item dropdown has-arrow main-drop">
                         <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
@@ -59,20 +59,20 @@
                                 <Link :href="route('profile.show')" >
                                 <a class="dropdown-item" > <i class="me-2"  data-feather="user"></i> My Profile</a>
                                 </Link>
-                            
+
                                 <hr class="m-0">
                                   <form @submit.prevent="logout">
                                         <jet-dropdown-link as="button">
                                                   <a class="dropdown-item logout pb-0"><img :src=" url + '/assets/img/icons/log-out.svg'" class="me-2" alt="img">Logout</a>
                                         </jet-dropdown-link>
                                  </form>
-                              
+
                             </div>
                         </div>
                     </li>
                 </ul>
                 <!-- /Header Menu -->
-                
+
                 <!-- Mobile Menu -->
                 <div class="dropdown mobile-user-menu">
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
@@ -88,31 +88,31 @@
                 <!-- /Mobile Menu -->
             </div>
             <!-- Header -->
-            
+
         <!-- Sidebar -->
             <div class="sidebar" id="sidebar">
                 <div class="sidebar-inner slimscroll">
                     <div id="sidebar-menu" class="sidebar-menu">
                         <ul>
-                        
-                            <li>   
+
+                            <li>
                             <Link :href="route('dashboard')" >
-                                <img :src="url + '/assets/img/icons/dashboard.svg'" alt="img"><span> Dashboard</span> 
+                                <img :src="url + '/assets/img/icons/dashboard.svg'" alt="img"><span> Dashboard</span>
                                 </Link>
                             </li>
 							<li class="submenu">
 								<a href="javascript:void(0);"><img :src="url + '/assets/img/icons/product.svg'" alt="img"><span> Productos</span> <span class="menu-arrow"></span></a>
 								<ul>
-									
+                                    <li><Link :href="route('product.create')" >Agregar Producto</Link></li>
 									<li><Link :href="route('category.index')" >Lista de Categorias</Link></li>
 									<li><Link :href="route('category.create')" >Agregar Categorias</Link></li>
 									<li><Link :href="route('printer.index')" >Lista de impresoras</Link></li>
 									<li><Link :href="route('printer.create')" >Agregar impresora</Link></li>
-									
+
 								</ul>
 							</li>
-                         
-                          
+
+
                         </ul>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
 						</div>
 					</div> -->
                             <slot></slot>
-                  
+
                 </div>
             </div>
         </div>
@@ -238,7 +238,7 @@ export default {
 		});
 	}
 
-	//Home popular 
+	//Home popular
 	if($('.owl-product').length > 0 ){
 		var owl = $('.owl-product');
 			owl.owlCarousel({
@@ -265,8 +265,8 @@ export default {
 	if($('.datanew').length > 0) {
 		$('.datanew').DataTable({
 			"bFilter": true,
-			"sDom": 'fBtlpi',  
-			'pagingType': 'numbers', 
+			"sDom": 'fBtlpi',
+			'pagingType': 'numbers',
 			"ordering": true,
 			"language": {
 				search: ' ',
@@ -277,7 +277,7 @@ export default {
 			initComplete: (settings, json)=>{
 				$('.dataTables_filter').appendTo('#tableSearch');
 				$('.dataTables_filter').appendTo('.search-input');
-			},	
+			},
 		});
 	}
 
@@ -285,15 +285,15 @@ export default {
 	function readURL(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
-	
+
 			reader.onload = function (e) {
 				$('#blah').attr('src', e.target.result);
 			}
-	
+
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
-	
+
 	$("#imgInp").change(function(){
 		readURL(this);
 	});
@@ -324,7 +324,7 @@ export default {
 			}
 		});
 	}
-	
+
 	// toggle-password
 	if($('.toggle-password').length > 0) {
 		$(document).on('click', '.toggle-password', function() {
@@ -368,7 +368,7 @@ export default {
 		});
 	}
 
-	// Counter 
+	// Counter
 	if($('.counter').length > 0) {
 		$('.counter').counterUp({
 			delay: 20,
@@ -385,31 +385,31 @@ export default {
 			autostart: true
 		});
 	}
-	
+
 	if($('#timer-countup').length > 0) {
 		$( '#timer-countup' ).countdown( {
 			from: 0,
-			to: 180 
+			to: 180
 		});
 	}
-	
+
 	if($('#timer-countinbetween').length > 0) {
 		$( '#timer-countinbetween' ).countdown( {
 			from: 30,
-			to: 20 
+			to: 20
 		});
 	}
-	
+
 	if($('#timer-countercallback').length > 0) {
 		$( '#timer-countercallback' ).countdown( {
 			from: 10,
 			to: 0,
 			timerEnd: function() {
 				this.css( { 'text-decoration':'line-through' } ).animate( { 'opacity':.5 }, 500 );
-			} 
+			}
 		});
 	}
-	
+
 	if($('#timer-outputpattern').length > 0) {
 		$( '#timer-outputpattern' ).countdown( {
 			outputPattern: '$day Days $hour Hour $minute Min $second Sec..',
@@ -427,7 +427,7 @@ export default {
 		focus: true                  // set focus to editable area after initializing summernote
 		});
 	}
-	
+
 
 
 	// Sidebar Slimscroll
@@ -473,8 +473,8 @@ export default {
 			}
 		});
 		$('#sidebar-menu ul li.submenu a.active').parents('li:last').children('a:first').addClass('active').trigger('click');
-	
-	
+
+
 
 	$(document).on('mouseover', function(e) {
         e.stopPropagation();
@@ -505,7 +505,7 @@ export default {
 	$('.submenus').on('click', function(){
 		$('body').addClass('sidebarrightmenu');
 	});
-	
+
 	$('#searchdiv').on('click', function(){
 		$('.searchinputs').addClass('show');
 	});
@@ -570,11 +570,11 @@ export default {
 			complete: function() {
 			$this.text(this.countNum);
 			}
-		
-		});  
-		
+
+		});
+
 	});
-	
+
 
 	// toggle-password
 	if($('.toggle-password').length > 0) {
@@ -618,7 +618,7 @@ export default {
 			});
 		});
 	}
-		
+
 	// Popover
 	if($('.popover-list').length > 0) {
 		var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
@@ -627,7 +627,7 @@ export default {
 		})
 	}
 
-	// Clipboard 
+	// Clipboard
 	if($('.clipboard').length > 0) {
 		var clipboard = new Clipboard('.btn');
 	}
@@ -637,7 +637,7 @@ export default {
 	(function() {
 		if ($(window).width() > 991)
 			chatAppTarget.removeClass('chat-slide');
-		
+
 		$(document).on("click",".chat-window .chat-users-list a.media",function () {
 			if ($(window).width() <= 991) {
 				chatAppTarget.addClass('chat-slide');
@@ -647,22 +647,22 @@ export default {
 		$(document).on("click","#back_user_list",function () {
 			if ($(window).width() <= 991) {
 				chatAppTarget.removeClass('chat-slide');
-			}	
+			}
 			return false;
 		});
 	})();
 
 	// Mail important
-	
+
 	$(document).on('click', '.mail-important', function() {
 		$(this).find('i.fa').toggleClass('fa-star').toggleClass('fa-star-o');
 	});
 
-		
+
 	var selectAllItems = "#select-all";
 	var checkboxItem = ":checkbox";
 	$(selectAllItems).click(function() {
-		
+
 		if (this.checked) {
 		$(checkboxItem).each(function() {
 			this.checked = true;
@@ -672,9 +672,9 @@ export default {
 			this.checked = false;
 		});
 		}
-		
+
 	});
-		
+
 	// Tooltip
 	if($('[data-bs-toggle="tooltip"]').length > 0) {
 		var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -744,7 +744,7 @@ export default {
     $("body").append(right_side_views);
 
 	// Sidebar Visible
-	
+
 	$('.open-layout').on("click", function (s) {
 		s.preventDefault();
 		$('.sidebar-layout').addClass('show-layout');
@@ -782,7 +782,7 @@ export default {
 
 		if (currentTheme) {
 			app.setAttribute('data-theme', currentTheme);
-		  
+
 			if (currentTheme === 'dark') {
 				toggleSwitch.checked = true;
 			}
@@ -793,15 +793,15 @@ export default {
 				app.setAttribute('data-theme', 'dark');
 				localStorage.setItem('theme', 'dark');
 			}
-			else {       
+			else {
 				app.setAttribute('data-theme', 'light');
 				localStorage.setItem('theme', 'light');
-			}    
+			}
 		}
 
-		toggleSwitch.addEventListener('change', switchTheme, false);	
+		toggleSwitch.addEventListener('change', switchTheme, false);
 	}
-	
+
 	if(window.location.hash == "#LightMode"){
 		localStorage.setItem('theme', 'dark');
 	}
@@ -811,7 +811,7 @@ export default {
 		}
 	}
 
-	
+
 	$('ul.tabs li').click(function(){
 		var $this = $(this);
 		var $theTab = $(this).attr('id');
@@ -822,7 +822,7 @@ export default {
 		  $this.closest('.tabs_wrapper').find('ul.tabs li, .tabs_container .tab_content').removeClass('active');
 		  $('.tabs_container .tab_content[data-tab="'+$theTab+'"], ul.tabs li[id="'+$theTab+'"]').addClass('active');
 		}
-		
+
 	});
   },
 
