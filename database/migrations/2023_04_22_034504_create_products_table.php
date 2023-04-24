@@ -21,14 +21,15 @@ class CreateProductsTable extends Migration
             $table->foreignId('category_id')
             ->references('id')
             ->on('categories');
-            $table->text('description');
-            $table->string('barcode')->unique();
-            $table->string('code')->unique();
-            $table->string('sku')->unique();
+            $table->text('description')->nullable();
+            $table->string('barcode')->unique()->index()->nullable();
+            $table->string('code')->unique()->index();
+            $table->string('sku')->unique()->index()->nullable();
             $table->integer('quantity')->default(0);
             $table->integer('minimum_qty')->default(0);
             $table->enum('unit', ['Unidad', 'Fraccion'])->default('Unidad');
             $table->boolean('favorite')->default(0);
+            $table->string('url_image')->nullable();
             $table->timestamps();
         });
     }

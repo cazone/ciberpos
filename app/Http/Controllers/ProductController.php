@@ -16,7 +16,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Product/Index',[
+            'products'=>Product::paginate(10),
+
+        ]);
     }
 
     /**
@@ -40,7 +43,20 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name_product'=>'required',
+            'price'=>'required',
+            'category_id'=>'required',
+            'code'=>'required',
+            'quantity'=>'required',
+            'minimum_qty'=>'required',
+            'unit'=>'required',
+           
+        ]);
+
+        Product::create($request->all());
+
+        return redirect()->route('category.index')->with('success','Producto creado correctamente');
     }
 
     /**
@@ -62,7 +78,13 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return Inertia::render('Product/Edit',[
+            'product'=>$product,
+
+  
+            
+
+        ]);
     }
 
     /**
@@ -74,7 +96,20 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $request->validate([
+            'name_product'=>'required',
+            'price'=>'required',
+            'category_id'=>'required',
+            'code'=>'required',
+            'quantity'=>'required',
+            'minimum_qty'=>'required',
+            'unit'=>'required',
+           
+        ]);
+
+        $product->update($request->all());
+       
+        return redirect()->route('product.index')->with('success','Producto actualizado correctamente');
     }
 
     /**
@@ -85,6 +120,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+            $product->delete();
+        return redirect()->back()->with(['success'=> 'Producto Eliminado']);
     }
 }

@@ -4,8 +4,8 @@
 
         <div class="page-header">
             <div class="page-title">
-                <h4>Añadir nuevo producto</h4>
-                <h6>Crear nuevo producto</h6>
+                <h4>Editar producto</h4>
+                <h6>CEditar el producto</h6>
             </div>
         </div>
         <div class="card">
@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group">
-                                <label>Nombre de categoria</label>
+                                <label>Nombre </label>
                                 <jet-input id="name" type="text" v-model="form.name_product"
                                     :class="{ 'is-invalid': form.errors.name_product }" autocomplete="name_product" />
                                 <jet-input-error :message="form.errors.name_product" />
@@ -150,19 +150,20 @@ import JetButton from "@/Jetstream/Button.vue";
 import JetSecondaryButton from "@/Jetstream/SecondaryButton.vue";
 import { useForm } from "@inertiajs/inertia-vue3";
 const categories = computed(() => usePage().props.value.categories)
+const product = computed(() => usePage().props.value.product)
 const form = useForm({
-    name_product: null,
-    category_id: null,
-    unit: 'Unidad',
-    code: null,
-    barcode: null,
-    sku: null,
-    minimum_qty: 0,
-    quantity: 0,
-    description: null,
-    price: 0,
-    cost: 0,
-    favorite: false
+    name_product: product.value.name_product,
+    category_id: product.value.category_id,
+    unit:   product.value.unit,
+    code: product.value.code,
+    barcode:  product.value.barcode,
+    sku: product.value.sku,
+    minimum_qty:    product.value.minimum_qty,
+    quantity:   product.value.quantity,
+    description:   product.value.description,
+    price:  product.value.price,
+    cost:   product.value.cost,
+    favorite:   product.value.favorite ? true : false,
 });
 const options = [
     {
@@ -175,6 +176,6 @@ const options = [
     }
 ]
 const submitForm = () => {
-    form.post(route("product.store"), {});
+    form.put(route("product.update", product.value.id), {});
 };
 </script>

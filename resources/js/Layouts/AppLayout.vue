@@ -103,6 +103,7 @@
 							<li class="submenu">
 								<a href="javascript:void(0);"><img :src="url + '/assets/img/icons/product.svg'" alt="img"><span> Productos</span> <span class="menu-arrow"></span></a>
 								<ul>
+                                    <li><Link :href="route('product.index')" >Lista de Productos</Link></li>
                                     <li><Link :href="route('product.create')" >Agregar Producto</Link></li>
 									<li><Link :href="route('category.index')" >Lista de Categorias</Link></li>
 									<li><Link :href="route('category.create')" >Agregar Categorias</Link></li>
