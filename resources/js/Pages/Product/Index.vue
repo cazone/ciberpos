@@ -23,6 +23,14 @@
               <el-table :data="products.data" stripe style="width: 100%">
         <el-table-column  fixed  prop="id" label="ID"  width="50"/>
             <el-table-column prop="name_product" label="Nombre" />
+            <el-table-column prop="code" label="Codigo" />
+            <el-table-column prop="quantity" label="Existencia" />
+            <el-table-column prop="category" label="Categoria">
+                <template #default="scope">
+                    <span>{{ scope.row.category.name }}</span>
+                </template>
+
+            </el-table-column>
 
             <el-table-column fixed="right" label="" width="180">
                 <template #default="scope">

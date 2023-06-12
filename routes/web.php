@@ -2,6 +2,7 @@
 
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PosController;
 use App\Http\Controllers\PrinterController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
@@ -24,6 +25,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified',])->group(function () {
     Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/pos',[PosController::class, 'index'])->name('pos');
     Route::resource('category', CategoryController::class);
     Route::resource('printer', PrinterController::class);
     Route::resource('product', ProductController::class);

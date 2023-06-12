@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" class="no-js">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title inertia>{{ config('app.name', 'Laravel') }}</title>
+        <title inertia>{{ config('app.name', 'CiberPos') }}</title>
 
         <link rel="shortcut icon" href="{{ asset("assets/img/favicon.png")}}">
     	<link rel="stylesheet" href="{{ asset("assets/css/bootstrap.min.css")}}">
@@ -27,7 +27,7 @@
             <script src="http://localhost:3000/browser-sync/browser-sync-client.js"></script>
         @endenv
         <script src="{{ asset("assets/js/jquery-3.6.0.min.js")}}"></script>
-    
+
 
         <!-- Feather Icon JS -->
         <script src="{{ asset("assets/js/feather.min.js")}}"></script>

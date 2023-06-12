@@ -37,6 +37,7 @@
         "moment": "^2.29.1",
         "numeral": "^2.0.6",
         "vue-clipboard3": "^1.0.1",
-        "vue-numerals": "^4.0.6"
+        "vue-numerals": "^4.0.6",
+        "vue3-carousel": "^0.3.0"
     }
 }
