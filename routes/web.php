@@ -30,4 +30,6 @@ Route::middleware(['auth:sanctum', 'verified',])->group(function () {
     Route::resource('printer', PrinterController::class);
     Route::resource('product', ProductController::class);
 
+    Route::get('/pos-search',[PosController::class, 'search'])->name('search');
+
 });

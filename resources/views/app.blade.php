@@ -12,6 +12,8 @@
     	<link rel="stylesheet" href="{{ asset("assets/plugins/fontawesome/css/fontawesome.min.css")}}">
     	<link rel="stylesheet" href="{{ asset("assets/plugins/fontawesome/css/all.min.css")}}">
     	<link rel="stylesheet" href="{{ asset("assets/css/style.css")}}">
+        <link rel="stylesheet" href="{{ asset("assets/plugins/fontawesome/css/fontawesome.min.css")}}">
+        <link rel="stylesheet" href="{{ asset("assets/plugins/fontawesome/css/all.min.css")}}">
 
         @routes
         <script src="{{ mix('js/app.js') }}" defer></script>
