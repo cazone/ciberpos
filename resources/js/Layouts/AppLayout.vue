@@ -100,6 +100,12 @@
                                 <img :src="url + '/assets/img/icons/dashboard.svg'" alt="img"><span> Dashboard</span>
                                 </Link>
                             </li>
+                            <li>
+                            <Link :href="route('pos')" >
+
+                                <img :src="url + '/assets/img/icons/dashboard.svg'" alt="img"><span> POS</span>
+                                </Link>
+                            </li>
 							<li class="submenu">
 								<a href="javascript:void(0);"><img :src="url + '/assets/img/icons/product.svg'" alt="img"><span> Productos</span> <span class="menu-arrow"></span></a>
 								<ul>
@@ -173,12 +179,21 @@ export default {
     }
   },
   mounted() {
+    $('body').addClass('mini-sidebar');
+			$(this).removeClass('active');
+			$('.subdrop + ul').slideUp();
+			localStorage.removeItem('screenModeNightTokenState', 'night');
+			setTimeout(function() {
+				$("body").addClass("mini-sidebar");
+				$(".header-left").removeClass("active");
+			}, 100);
        this.url = process.env.MIX_APP_URL;
         // Variables declarations
 	var $wrapper = $('.main-wrapper');
 	var $slimScrolls = $('.slimscroll');
 	var $pageWrapper = $('.page-wrapper');
 	feather.replace();
+
 
 	// Page Content Height Resize
 	$(window).resize(function () {

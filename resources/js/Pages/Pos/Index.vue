@@ -1,5 +1,5 @@
 <template>
-  <app-layout title="Lista">
+  <app-layout title="POS">
     <template #header>
     </template>
 
@@ -17,6 +17,10 @@
     >
 
     </el-input>
+    <el-scrollbar >
+
+
+    </el-scrollbar>
 
 
       </el-header>
@@ -28,26 +32,52 @@
     </div>
   </el-scrollbar> -->
       <el-container>
-        <el-aside width="20%" >
+        <el-aside width="10%" >
+            <el-scrollbar max-height="400px">
 
+
+</el-scrollbar>
         </el-aside>
+
         <el-main  >
             <div class="totalitem">
 										<h4>Total items : {{ posStore.products.length }}</h4>
-										<a href="javascript:void(0);">Borrar todo</a>
+
+										<a @click="posStore.delAllProducts" href="javascript:void(0);">Borrar todo</a>
 									</div>
             <el-table v-loading="posStore.loading" :data="posStore.products" style="width: 100%"    height="400"  highlight-current-row>
                 <el-table-column type="index" width="50" />
     <el-table-column prop="name_product" label="Producto" />
-    <el-table-column prop="amount" label="Cantidad" width="250">
+    <el-table-column prop="amount" label="Cantidad" width="150" align="center">
         <template #default="scope">
             <el-input-number v-model="scope.row.amount" :min="1" :max="10"  size="small"/>
         </template>
     </el-table-column>
-    <el-table-column prop="price" label="Precio"  />
+    <el-table-column prop="price" label="Precio" width="150" align="center">
+        <template #default="scope">
+            {{ numeralFormat(scope.row.price, '$ 0,0[.]00')  }}
+        </template>
+
+
+    </el-table-column>
+    <el-table-column prop="discount" label="Desc" width="150" align="center">
+        <template #default="scope">
+            {{ numeralFormat(scope.row.discount, '$ 0,0[.]00')  }}
+        </template>
+
+
+    </el-table-column>
+    <el-table-column prop="subtotal" label="Subtotal"  align="center">
+
+        <template #default="scope">
+            {{ numeralFormat(scope.row.subtotal, '$ 0,0[.]00')  }}
+        </template>
+
+
+    </el-table-column>
     <el-table-column fixed="right" label="" width="60">
                 <template #default="scope">
-                    <el-button icon="fa fa-trash"  size="small" circle  />
+                    <el-button icon="fa fa-trash"  @click="posStore.delProduct(scope.$index )" size="small" circle  />
 
                 </template>
                 </el-table-column>
@@ -56,94 +86,39 @@
   <div class="card-body pt-0 pb-2">
 									<div class="setvalue">
 										<ul>
-											<li>
+											<!-- <li>
 												<h5>Subtotal </h5>
 												<h6>55.00$</h6>
 											</li>
 											<li>
 												<h5>Tax </h5>
 												<h6>5.00$</h6>
-											</li>
+											</li> -->
 											<li class="total-value">
-												<h5>Total  </h5>
-												<h6>60.00$</h6>
+												<h3>Total  </h3>
+												<h3>{{numeralFormat(posStore.total, '$ 0,0[.]00')   }}</h3>
 											</li>
 										</ul>
+                                        <el-row class="row-bg" justify="end" >
+                                        <el-button  plain size="large">
+                                            <img src="assets/img/icons/search.svg" alt="img" class="me-2"> Buscar Producto
+                                        </el-button>
+                                        <el-button  plain size="large">
+                                            <img src="assets/img/icons/purchase1.svg" alt="img" class="me-2"> Corte de Caja
+                                        </el-button>
+                                        <el-button  plain size="large">
+                                            <img src="assets/img/icons/cash.svg" alt="img" class="me-2"> Cobrar Cuenta
+                                        </el-button>
+
+  </el-row>
 									</div>
-									<div class="setvaluecash">
-										<ul>
-											<li>
-												<a href="javascript:void(0);" class="paymentmethod">
-													<img src="assets/img/icons/cash.svg" alt="img" class="me-2">
-													Cash
-												</a>
-											</li>
-											<li>
-												<a href="javascript:void(0);" class="paymentmethod">
-													<img src="assets/img/icons/debitcard.svg" alt="img" class="me-2">
-													Debit
-												</a>
-											</li>
-											<li>
-												<a href="javascript:void(0);" class="paymentmethod">
-													<img src="assets/img/icons/scan.svg" alt="img" class="me-2">
-													Scan
-												</a>
-											</li>
-										</ul>
-									</div>
-									<div class="btn-totallabel">
-										<h5>Checkout</h5>
-										<h6>60.00$</h6>
-									</div>
-									<div class="btn-pos">
-										<ul>
-											<li>
-												<a class="btn"><img src="assets/img/icons/pause1.svg" alt="img" class="me-1">Hold</a>
-											</li>
-											<li>
-												<a class="btn"><img src="assets/img/icons/edit-6.svg" alt="img" class="me-1">Quotation</a>
-											</li>
-											<li>
-												<a class="btn"><img src="assets/img/icons/trash12.svg" alt="img" class="me-1">Void</a>
-											</li>
-											<li>
-												<a class="btn"><img src="assets/img/icons/wallet1.svg" alt="img" class="me-1">Payment</a>
-											</li>
-											<li>
-												<a class="btn"  data-bs-toggle="modal" data-bs-target="#recents"><img src="assets/img/icons/transcation.svg" alt="img" class="me-1"> Transaction</a>
-											</li>
-										</ul>
-									</div>
+
+
+
 								</div>
         </el-main>
       </el-container>
-      <el-footer>
 
-        <div class="setvaluecash">
-										<ul>
-											<li>
-												<a href="javascript:void(0);" class="paymentmethod">
-													<img src="assets/img/icons/cash.svg" alt="img" class="me-2">
-													Total
-												</a>
-											</li>
-											<li>
-												<a href="javascript:void(0);" class="paymentmethod">
-													<img src="assets/img/icons/debitcard.svg" alt="img" class="me-2">
-													Debit
-												</a>
-											</li>
-											<li>
-												<a href="javascript:void(0);" class="paymentmethod">
-													<img src="assets/img/icons/scan.svg" alt="img" class="me-2">
-													Scan
-												</a>
-											</li>
-										</ul>
-									</div>
-
-                                    </el-footer>
     </el-container>
   </div>
   </app-layout>

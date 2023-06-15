@@ -27,6 +27,7 @@ class CreateProductsTable extends Migration
             $table->string('sku')->unique()->index()->nullable();
             $table->integer('quantity')->default(0);
             $table->integer('minimum_qty')->default(0);
+            $table->integer('discount')->default(0);
             $table->enum('unit', ['Unidad', 'Fraccion'])->default('Unidad');
             $table->boolean('favorite')->default(0);
             $table->string('url_image')->nullable();
