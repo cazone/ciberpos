@@ -51,7 +51,7 @@ class ProductController extends Controller
             'quantity'=>'required',
             'minimum_qty'=>'required',
             'unit'=>'required',
-           
+
         ]);
 
         Product::create($request->all());
@@ -59,6 +59,16 @@ class ProductController extends Controller
         return redirect()->route('category.index')->with('success','Producto creado correctamente');
     }
 
+
+    public function search(Request $request){
+
+        $products = Product::where('name_product','LIKE','%'.$request->search.'%')
+        ->orWhere('code','LIKE','%'.$request->search.'%')
+        ->limit(10)->get();
+        return $this->sendResponse($products, 'Search successfully.');
+
+
+    }
     /**
      * Display the specified resource.
      *
@@ -81,8 +91,8 @@ class ProductController extends Controller
         return Inertia::render('Product/Edit',[
             'product'=>$product,
 
-  
-            
+
+
 
         ]);
     }
@@ -104,11 +114,11 @@ class ProductController extends Controller
             'quantity'=>'required',
             'minimum_qty'=>'required',
             'unit'=>'required',
-           
+
         ]);
 
         $product->update($request->all());
-       
+
         return redirect()->route('product.index')->with('success','Producto actualizado correctamente');
     }
 
