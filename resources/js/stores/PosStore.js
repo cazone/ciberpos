@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { defineStore } from 'pinia'
-import { ref , watch, onMounted} from 'vue'
+import { ref , watch, onMounted, watchEffect} from 'vue'
 import { useStorageAsync } from '@vueuse/core'
 import { ElMessage } from 'element-plus'
 import { t } from 'element-plus/lib/locale';
@@ -16,6 +16,7 @@ export const usePosStore = defineStore('pos', () => {
     const centerDialogVisible = ref(false);
     const ticket = ref(false);
     const pay = ref(0);
+
     const change = ref(0);
 
 
@@ -25,7 +26,7 @@ onMounted(async () => {
     if (local.length > 0) {
         products.value = await JSON.parse(local);
     }
-    productsStorage.value = products.value;
+        productsStorage.value = products.value;
 }),
 
     watch(pay, (newX) => {
@@ -41,8 +42,6 @@ onMounted(async () => {
 
              products.value.forEach(item => {
 
-
-
               item.total = (item.price * item.amount) - item.discount;
               item.subtotal = item.price * item.amount;
               item.discount = item.price * item.amount * item.discountPorcent;
@@ -55,8 +54,10 @@ onMounted(async () => {
          }, { deep: true })
 
     const openCenterDialog = () => {
+
         centerDialogVisible.value = true;
         pay.value = total.value;
+
     }
     const delAllProducts = () => {
         products.value = [];
@@ -79,9 +80,16 @@ onMounted(async () => {
         return;
 
        }
-       console.log(searchArr);
+
+        var  porcent  = 0;
+        if (data[0].category.discount > 0){
+           porcent = data[0].category.discount;
+
+        }
+
+
        const amount = searchArr[1] ? parseInt(searchArr[1]) : 1;
-       const discountPorcent = 10 / 100
+       const discountPorcent = porcent / 100
        const discount = (data[0].price * amount) * discountPorcent
 
        const  tempProducts = {
@@ -101,6 +109,36 @@ onMounted(async () => {
         valSearch.value = '';
     }
 
+    const saveSetInvoice = async (data) => {
+       if (data == null) return;
+        loading.value = true;
+
+        var  porcent  = 0;
+        if (data.category.discount > 0){
+           porcent = data.category.discount;
+
+        }
+        const amount = data.amount ? data.amount : 1;
+        const discountPorcent = porcent / 100
+        const discount = (data.price * amount) * discountPorcent
+
+        const  tempProducts = {
+             id: data.id,
+             name_product: data.name_product,
+             price: data.price,
+             amount: amount,
+             discount: discount,
+             discountPorcent: discountPorcent,
+             subtotal: data.price * amount,
+             total: data.price * amount - discount
+         };
+
+         await  products.value.push(tempProducts);
+
+         loading.value = false;
+         valSearch.value = '';
+    }
+
     const saveInvoice = async() => {
         axios.post(route('invoice.store'), {
             products: products.value,
@@ -114,7 +152,7 @@ onMounted(async () => {
             centerDialogVisible.value = false;
            }
         }).catch(function (error) {
-            console.log(error);
+
             ElMessage.error('Oops, Algo salio mal.')
             centerDialogVisible.value = false;
         });
@@ -125,7 +163,7 @@ onMounted(async () => {
 
     return {valSearch, searchProduct, products, message, loading, total, delProduct,
         delAllProducts, discount, centerDialogVisible, ticket, change, pay, openCenterDialog,
-        subtotal, saveInvoice
+        subtotal, saveInvoice, saveSetInvoice
     }
 
 })

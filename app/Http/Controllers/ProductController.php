@@ -16,8 +16,15 @@ class ProductController extends Controller
      */
     public function index()
     {
+
+        $products = Product::query()
+        ->with('category')
+        ->filter(request()->only("search"))
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
+
         return Inertia::render('Product/Index',[
-            'products'=>Product::with('category')->paginate(10),
+            'products'=>$products ,
 
         ]);
     }
@@ -62,8 +69,9 @@ class ProductController extends Controller
 
     public function search(Request $request){
 
-        $products = Product::where('name_product','LIKE','%'.$request->search.'%')
+        $products = Product::with('category')->where('name_product','LIKE','%'.$request->search.'%')
         ->orWhere('code','LIKE','%'.$request->search.'%')
+        ->orWhere('barcode','LIKE','%'.$request->search.'%')
         ->limit(10)->get();
         return $this->sendResponse($products, 'Search successfully.');
 
@@ -90,6 +98,7 @@ class ProductController extends Controller
     {
         return Inertia::render('Product/Edit',[
             'product'=>$product,
+            'categories' => Category::all()
 
 
 

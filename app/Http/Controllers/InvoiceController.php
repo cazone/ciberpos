@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -56,6 +57,10 @@ class InvoiceController extends Controller
             ]);
 
             foreach ($request->products as $product) {
+                $productEdit = Product::find($product['id']);
+                $productEdit->quantity = $productEdit->quantity - $product['amount'];
+                $productEdit->save();
+
                 $invoice->invoiceDetails()->create([
                     'price' => $product['price'],
                     'amount' => $product['amount'],

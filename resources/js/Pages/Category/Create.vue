@@ -1,9 +1,9 @@
 <template>
   <app-layout title="Nueva Categoria">
     <template #header>
- 
+
     </template>
-    
+
     <div class="page-header">
 						<div class="page-title">
 							<h4>Producto Añadir categoría</h4>
@@ -22,6 +22,15 @@
                     <jet-input-error :message="form.errors.name" />
 									</div>
 								</div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+									<div class="form-group">
+										<label>Descuento</label>
+                    <jet-input id="discount" type="text" v-model="form.discount"
+                     :class="{ 'is-invalid': form.errors.discount }" autocomplete="discount" />
+                    <jet-input-error :message="form.errors.discount" />
+									</div>
+								</div>
+
 
 								<div class="col-lg-12">
                   <jet-button :class="{ 'text-white-50': form.processing }" class="btn btn-submit me-2" :disabled="form.processing">
@@ -30,13 +39,13 @@
                </div>
                 Guardar
              </jet-button>
-							
+
 								</div>
 							</div>
             </form>
 						</div>
 					</div>
-    
+
   </app-layout>
 </template>
 
@@ -54,6 +63,8 @@ import { useForm } from '@inertiajs/inertia-vue3'
 
 const form = useForm({
       name: null,
+
+        discount: null,
 
     })
 

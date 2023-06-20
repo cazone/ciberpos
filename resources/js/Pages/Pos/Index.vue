@@ -17,13 +17,20 @@
     >
 
     </el-input>
-    <el-scrollbar >
 
 
-    </el-scrollbar>
 
 
       </el-header>
+
+      <!-- <el-scrollbar>
+    <div style="margin-top:10px; margin-bottom:20px"  >
+        <el-row  class="mb-4">
+            <el-button  v-for="item in categories"  :key="item.id" type="primary" round>{{ item.name }}</el-button>
+
+  </el-row>
+    </div>
+  </el-scrollbar> -->
       <!-- <el-scrollbar>
     <div class="scrollbar-flex-content">
       <p v-for="item in 50" :key="item">
@@ -34,7 +41,14 @@
       <el-container>
         <el-aside width="10%" >
             <el-scrollbar max-height="400px">
+                <ul class="inbox-menu">
 
+<li>
+<a href="javascript:void(0);" v-for="item in favorites" :key="item.id" @click="addFavorite(item)"><i class="far fa-star">
+</i> {{ item.name_product }}</a>
+</li>
+
+</ul>
 
 </el-scrollbar>
         </el-aside>
@@ -43,7 +57,7 @@
             <div class="totalitem">
 										<h4>Total items : {{ posStore.products.length }}</h4>
 
-										<a @click="posStore.delAllProducts" href="javascript:void(0);">Borrar todo</a>
+                                        <el-button @click="posStore.delAllProducts" type="danger" plain>Borrar todo</el-button>
 									</div>
             <el-table v-loading="posStore.loading" :data="posStore.products" style="width: 100%"    height="400"  highlight-current-row>
                 <el-table-column type="index" width="50" />
@@ -101,7 +115,7 @@
 										</ul>
                                         <el-row class="row-bg" justify="end" >
                                         <el-button  plain size="large" @click="productStore.openDialog">
-                                            <img src="assets/img/icons/search.svg" alt="img" class="me-2"> Buscar Producto
+                                            <img src="assets/img/icons/search.svg" alt="img" class="me-2"> Buscar Producto (F1)
                                         </el-button>
                                         <el-button  plain size="large">
                                             <img src="assets/img/icons/purchase1.svg" alt="img" class="me-2"> Corte de Caja
@@ -128,6 +142,7 @@
  :show-close="false" title="Cobrar Cuenta" width="30%" center :close-on-click-modal="false">
     <el-row justify="center">
         <el-input
+        ref="refPay"
        @keyup.enter=""
         v-model="posStore.pay"
       size="large"
@@ -161,7 +176,7 @@
   </app-layout>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 import AppLayout from "@/Layouts/AppLayout.vue"
 import { Head, Link } from '@inertiajs/inertia-vue3'
@@ -171,11 +186,31 @@ import { ElMessage } from 'element-plus'
 import { usePosStore } from "@/stores/PosStore";
 import SearchProduct from "@/components/SearchProduct.vue";
 import { useProductStore } from "@/stores/ProductStore";
+import { onKeyStroke } from '@vueuse/core'
+
+const categories = computed(() => usePage().props.value.categories)
+const favorites = computed(() => usePage().props.value.favorites)
+
 const productStore = useProductStore();
 
 const posStore = usePosStore();
 
+const addFavorite = (data) => {
+    posStore.saveSetInvoice(data)
+}
+onKeyStroke(['F1'], (e) => {
+   switch (e.code) {
+    case 'F1':
+    productStore.openDialog();
+        break;
 
+    default:
+        break;
+   }
+
+    console.log('f2 pressed', e)
+  e.preventDefault()
+})
 
 
 

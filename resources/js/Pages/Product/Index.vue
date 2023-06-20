@@ -1,7 +1,7 @@
 <template>
   <app-layout title="Lista">
     <template #header>
- 
+
     </template>
     <div class="page-header">
 						<div class="page-title">
@@ -17,8 +17,15 @@
           <div class="card">
 						<div class="card-body">
 							<div class="table-top">
-								
-								
+                                <el-input
+      v-model="BuscarClave.search"
+      @keypress.enter="buscar"
+      placeholder="Ingresa el nombre del producto o servicio"
+      class="input-with-select"
+    >
+                                </el-input>
+
+
 							</div>
               <el-table :data="products.data" stripe style="width: 100%">
         <el-table-column  fixed  prop="id" label="ID"  width="50"/>
@@ -54,7 +61,7 @@
         </el-table>
 
         <el-divider></el-divider>
-        
+
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
                 <li v-for="link in products.links" :key="link.id"
@@ -67,10 +74,10 @@
                         v-html="link.label"
                     ></Link>
                 </li>
-              
+
             </ul>
         </nav>
-						
+
 						</div>
 					</div>
 
@@ -98,11 +105,18 @@ import { Head, Link } from '@inertiajs/inertia-vue3'
 import { usePage } from '@inertiajs/inertia-vue3'
 import { useForm } from '@inertiajs/inertia-vue3'
 import { ElMessage } from 'element-plus'
-
+import { Inertia } from "@inertiajs/inertia";
+const BuscarClave= ref({
+            search: '',
+        })
 const form = useForm({
 
 
     })
+
+    const buscar = () => {
+        Inertia.get(route("product.index"), BuscarClave.value)
+}
 let elimar_id = null
 const dialogEliminar=ref(false)
 
@@ -132,4 +146,5 @@ onUpdated(() => {
 })
 const products = computed(() => usePage().props.value.products)
 const flash = computed(() => usePage().props.value.flash.success)
+const favorites = computed(() => usePage().props.value.flash.favorites)
 </script>

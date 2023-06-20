@@ -1,7 +1,7 @@
 <template>
   <app-layout title="Lista">
     <template #header>
- 
+
     </template>
     <div class="page-header">
 						<div class="page-title">
@@ -17,12 +17,13 @@
           <div class="card">
 						<div class="card-body">
 							<div class="table-top">
-								
-								
+
+
 							</div>
               <el-table :data="categories.data" stripe style="width: 100%">
         <el-table-column  fixed  prop="id" label="ID"  width="50"/>
             <el-table-column prop="name" label="Nombre de la categoria" />
+            <el-table-column prop="discount" label="Descuento " />
 
             <el-table-column fixed="right" label="" width="180">
                 <template #default="scope">
@@ -46,7 +47,7 @@
         </el-table>
 
         <el-divider></el-divider>
-        
+
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
                 <li v-for="link in categories.links" :key="link.id"
@@ -59,10 +60,10 @@
                         v-html="link.label"
                     ></Link>
                 </li>
-              
+
             </ul>
         </nav>
-						
+
 						</div>
 					</div>
 
