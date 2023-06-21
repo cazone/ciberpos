@@ -13,7 +13,7 @@ class PosController extends Controller
     {
         return Inertia::render('Pos/Index',[
             'categories' => Category::all(),
-            'favorites' => Product::where('favorite','>',0)->get()
+            'favorites' => Product::with('category')->where('favorite','>',0)->get()
 
         ]);
     }

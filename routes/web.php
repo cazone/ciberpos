@@ -3,6 +3,7 @@
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PosController;
+use App\Http\Controllers\OutlayController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PrinterController;
 use App\Http\Controllers\ProductController;
@@ -31,6 +32,7 @@ Route::middleware(['auth:sanctum', 'verified',])->group(function () {
     Route::resource('printer', PrinterController::class);
     Route::resource('product', ProductController::class);
     Route::resource('invoice', InvoiceController::class);
+    Route::resource('outlay', OutlayController::class);
     Route::post('/product/search',[ProductController::class, 'search'])->name('product.search');
     Route::get('/pos-search',[PosController::class, 'search'])->name('search');
 

@@ -3,6 +3,7 @@
     <template #header>
     </template>
 <SearchProduct />
+<Outlay  />
     <div class="common-layout">
     <el-container>
 
@@ -114,6 +115,9 @@
 											</li>
 										</ul>
                                         <el-row class="row-bg" justify="end" >
+                                            <el-button  plain size="large" @click="outlayStore.openDialog">
+                                            <img src="assets/img/icons/dash4.svg" alt="img" class="me-2"> Agregar Gasto (F2)
+                                        </el-button>
                                         <el-button  plain size="large" @click="productStore.openDialog">
                                             <img src="assets/img/icons/search.svg" alt="img" class="me-2"> Buscar Producto (F1)
                                         </el-button>
@@ -185,8 +189,11 @@ import { useForm } from '@inertiajs/inertia-vue3'
 import { ElMessage } from 'element-plus'
 import { usePosStore } from "@/stores/PosStore";
 import SearchProduct from "@/components/SearchProduct.vue";
+import Outlay from "@/components/Outlay.vue";
 import { useProductStore } from "@/stores/ProductStore";
 import { onKeyStroke } from '@vueuse/core'
+import { useOutlayStore } from "@/stores/OutlayStore";
+const outlayStore = useOutlayStore();
 
 const categories = computed(() => usePage().props.value.categories)
 const favorites = computed(() => usePage().props.value.favorites)
@@ -196,19 +203,23 @@ const productStore = useProductStore();
 const posStore = usePosStore();
 
 const addFavorite = (data) => {
+  console.log(data)
     posStore.saveSetInvoice(data)
 }
-onKeyStroke(['F1'], (e) => {
+onKeyStroke(['F1', 'F2'], (e) => {
    switch (e.code) {
     case 'F1':
     productStore.openDialog();
-        break;
+    break;
+    case 'F2':
+    outlayStore.openDialog();
+    break;
 
     default:
         break;
    }
 
-    console.log('f2 pressed', e)
+
   e.preventDefault()
 })
 

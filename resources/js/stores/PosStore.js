@@ -69,7 +69,7 @@ onMounted(async () => {
         let searchArr = valSearch.value.split('*');
 
         loading.value = true;
-    const { data } = await  axios.get(route('search'), {
+         const { data } = await  axios.get(route('search'), {
             params: {
                 query: searchArr[0]
             }
