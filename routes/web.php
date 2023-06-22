@@ -3,6 +3,8 @@
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PosController;
+use App\Http\Controllers\SaleController;
+use App\Http\Controllers\BoxCutController;
 use App\Http\Controllers\OutlayController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PrinterController;
@@ -33,6 +35,9 @@ Route::middleware(['auth:sanctum', 'verified',])->group(function () {
     Route::resource('product', ProductController::class);
     Route::resource('invoice', InvoiceController::class);
     Route::resource('outlay', OutlayController::class);
+    Route::resource('sale', SaleController::class);
+    Route::resource('boxcut', BoxCutController::class);
+    Route::post('boxcut-resume', [BoxCutController::class, 'resume'])->name('boxcut.resume');
     Route::post('/product/search',[ProductController::class, 'search'])->name('product.search');
     Route::get('/pos-search',[PosController::class, 'search'])->name('search');
 

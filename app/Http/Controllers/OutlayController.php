@@ -45,7 +45,7 @@ class OutlayController extends Controller
             'total' => $request->total,
             'user_id' => auth()->user()->id
         ]);
-        return $this->sendResponse(   $outlay, 'Search successfully.');
+        return $this->sendResponse(   $outlay, 'Outlay successfully.');
 
     }
 

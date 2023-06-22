@@ -10,7 +10,7 @@ export const useOutlayStore = defineStore('outlay', () => {
     const name = ref('');
     const pay = ref(0);
     const loading = ref(false);
-    const refNameOutlay = ref();
+    const refNameOutlay = ref(null);
 
     const saveOutlay = async () => {
 //TODO vaildar campos
@@ -27,9 +27,7 @@ export const useOutlayStore = defineStore('outlay', () => {
         centerDialogVisible.value = false;
         loading.value = false;
     }
-    // const refInput = (val) => {
-    //     refNameOutlay.value = val;
-    // }
+
     const openDialog =  async () => {
 
         name.value = '';

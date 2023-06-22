@@ -1,5 +1,5 @@
 <template>
-  <el-dialog  v-model="outlayStore.centerDialogVisible"
+  <el-dialog v-model="outlayStore.centerDialogVisible"
     :show-close="true" title="Agregar gasto" width="30%" center :close-on-click-modal="false">
     <el-row :gutter="20">
         <el-input
@@ -13,10 +13,11 @@
 <el-divider></el-divider>
     <el-row >
         <el-input
+        v-loading="loading"
 v-model="outlayStore.pay"
 placeholder="Por favor, monto gastado"
 class="input-with-select"
-
+@keyup.enter="outlayStore.saveOutlay"
 clearable
 >
 </el-input>
@@ -25,8 +26,7 @@ clearable
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="outlayStore.centerDialogVisible = false">Cancel</el-button>
-
-        <el-button       v-loading="outlayStore.loading" type="primary" @click="outlayStore.saveOutlay">
+        <el-button   v-loading="outlayStore.loading" type="primary" @click="outlayStore.saveOutlay">
           Guardar
         </el-button>
       </span>
@@ -40,12 +40,6 @@ import { useOutlayStore } from "@/stores/OutlayStore";
 const outlayStore = useOutlayStore();
 
 
-// onMounted(() => {
-
-// console.log('com' ,refName.value);
-//     outlayStore.refInput(refName.value );
-
-// })
 
 
 

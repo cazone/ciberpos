@@ -10,8 +10,8 @@
 <span><img src="assets/img/icons/dash1.svg" alt="img"></span>
 </div>
 <div class="dash-widgetcontent">
-<h5>$ <span class="counters" data-count="0">0</span></h5>
-<h6>Total Compras Diaria</h6>
+<h5>{{numeralFormat(outlay_day, '$ 0,0[.]00') }}</h5>
+<h6>Total Gastos Diaria</h6>
 </div>
 </div>
 </div>
@@ -43,8 +43,8 @@
 <span><img src="assets/img/icons/dash4.svg" alt="img"></span>
 </div>
 <div class="dash-widgetcontent">
-<h5>$ <span class="counters" data-count="0">0</span></h5>
-<h6>Total Compras Mensual</h6>
+    <h5>{{numeralFormat(outlay, '$ 0,0[.]00') }}</h5>
+<h6>Total Gastos Mensual</h6>
 </div>
 </div>
 </div>
@@ -70,5 +70,7 @@ import { usePage } from '@inertiajs/inertia-vue3'
 const sales = computed(() => usePage().props.value.sales)
 const mes = computed(() => usePage().props.value.mes)
 const sales_day = computed(() => usePage().props.value.sales_day)
+const outlay_day = computed(() => usePage().props.value.outlay_day)
+const outlay = computed(() => usePage().props.value.outlay)
 
 </script>

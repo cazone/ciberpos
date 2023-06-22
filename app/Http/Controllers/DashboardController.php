@@ -8,8 +8,10 @@ use App\Imports\RecepcionImport;
 use App\Models\Archivos;
 use App\Models\Entrega;
 use App\Models\Invoice;
+use App\Models\Outlay;
 use App\Models\Prestamo;
 use App\Models\Recepcion;
+use App\Models\Sale;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -23,12 +25,16 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $sales  = Invoice::whereMonth('created_at', '=', date('m'));
+        $invoice  = Invoice::whereMonth('created_at', '=', date('m'));
+        $sales    = Sale::whereMonth('created_at', '=', date('m'));
+        $outlay = Outlay::whereMonth('created_at', '=', date('m'));
 
         return Inertia::render('Dashboard',[
-            'sales' => $sales->sum('total'),
+            'sales' => $sales->sum('total') + $invoice->sum('total'),
             'mes' => date('m'),
-            'sales_day' => $sales->whereDay('created_at', '=', date('d'))->sum('total'),
+            'sales_day' => $sales->whereDay('created_at', '=', date('d'))->sum('total') + $invoice->whereDay('created_at', '=', date('d'))->sum('total'),
+            'outlay_day' => $outlay->whereDay('created_at', '=', date('d'))->sum('total') ,
+            'outlay' => $outlay->sum('total'),
         ]);
     }
 
