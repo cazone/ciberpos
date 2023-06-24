@@ -10,6 +10,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PrinterController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ShoppingController;
 use App\Http\Controllers\DashboardController;
 
 /*
@@ -37,6 +38,7 @@ Route::middleware(['auth:sanctum', 'verified',])->group(function () {
     Route::resource('outlay', OutlayController::class);
     Route::resource('sale', SaleController::class);
     Route::resource('boxcut', BoxCutController::class);
+    Route::resource('shopping', ShoppingController::class);
     Route::post('boxcut-resume', [BoxCutController::class, 'resume'])->name('boxcut.resume');
     Route::post('/product/search',[ProductController::class, 'search'])->name('product.search');
     Route::get('/pos-search',[PosController::class, 'search'])->name('search');

@@ -28,7 +28,7 @@
 
 							</div>
               <el-table :data="products.data" stripe style="width: 100%">
-        <el-table-column  fixed  prop="id" label="ID"  width="50"/>
+        <el-table-column  fixed  prop="id" label="ID"  width="100"/>
             <el-table-column prop="name_product" label="Nombre" />
             <el-table-column prop="code" label="Codigo" />
             <el-table-column prop="quantity" label="Existencia" />
