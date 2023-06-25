@@ -15,5 +15,11 @@ class Shopping extends Model
         'percent',
         'product_id',
         'user_id',
+        'total'
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

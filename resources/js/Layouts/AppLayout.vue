@@ -118,6 +118,14 @@
 
 								</ul>
 							</li>
+							<li class="submenu">
+								<a href="javascript:void(0);"><img :src="url + '/assets/img/icons/product.svg'" alt="img"><span> Compras</span> <span class="menu-arrow"></span></a>
+								<ul>
+                                    <!-- <li><Link :href="route('product.index')" >Lista de Productos</Link></li> -->
+                                    <li><Link :href="route('shopping.index')" >Agregar Compras</Link></li>
+
+								</ul>
+							</li>
 
 
                         </ul>

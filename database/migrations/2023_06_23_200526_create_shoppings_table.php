@@ -17,6 +17,7 @@ class CreateShoppingsTable extends Migration
             $table->id();
             $table->float('price');
             $table->float('amount');
+            $table->float('totaL');
             $table->integer('percent')->default(0);
             $table->foreignId('product_id')->nullable()->index();
             $table->foreignId('user_id')->nullable()->index();

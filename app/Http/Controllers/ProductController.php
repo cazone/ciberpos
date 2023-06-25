@@ -83,15 +83,20 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show( $product)
     {
-        //
+
+        $products = Product::with('category')
+        ->where('code',$product)
+        ->orWhere('barcode',$product)->first();
+        return $this->sendResponse($products , 'Search successfully.');
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Product  $productd
      * @return \Illuminate\Http\Response
      */
     public function edit(Product $product)

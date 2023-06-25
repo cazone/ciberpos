@@ -10,18 +10,29 @@ export const useProductStore = defineStore('product', () => {
     const valSearch = ref('');
     const products = ref([]);
     const loading = ref(false);
-    const currentRow = ref(null);
+    const currentRow = ref([]);
 
     const handleCurrentChange = async(val) => {
+          if (val != null) {
+            currentRow.value = {
+                id: val.id,
+                name_product: val.name_product,
+                price: val.price,
+                quantity : val.quantity,
 
+
+            };
+
+          }
         await  posStore.saveSetInvoice(val);
         valSearch.value = '';
         products.value = [];
-        currentRow.value = await null;
+
         centerDialogVisible.value = false;
 
 
       }
+
     const openDialog =  async () => {
 
 
