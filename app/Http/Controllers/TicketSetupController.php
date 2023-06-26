@@ -46,7 +46,7 @@ class TicketSetupController extends Controller
      */
     public function show(TicketSetup $ticketSetup)
     {
-        //
+
     }
 
     /**

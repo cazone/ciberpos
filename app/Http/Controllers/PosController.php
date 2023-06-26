@@ -19,6 +19,14 @@ class PosController extends Controller
     {
         $this->fpdf = new Fpdf($orientation='P',$unit='mm', array(75,258));
     }
+
+    public function tickets()
+    {
+        $ticket =  Invoice::with('user')
+        ->whereDay('created_at', '=', date('d'))
+        ->orderBy('id','desc')->limit(10)->get();
+         return $this->sendResponse(   $ticket, 'Outlay successfully.');
+    }
     public function index()
     {
         return Inertia::render('Pos/Index',[

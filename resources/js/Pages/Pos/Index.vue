@@ -5,6 +5,7 @@
         <Outlay />
         <Sale />
         <BoxCutStore />
+        <TicketPrint />
         <div class="common-layout">
             <el-container>
                 <el-header>
@@ -175,7 +176,7 @@
                                     <el-button
                                         plain
                                         size="large"
-                                        @click="outlayStore.openDialog"
+                                        @click="tikcetStore.openDialog"
                                     >
 
                                         Reimprimir Ticket
@@ -304,11 +305,14 @@ import SearchProduct from "@/components/SearchProduct.vue";
 import Outlay from "@/components/Outlay.vue";
 import Sale from "@/components/Sale.vue";
 import BoxCutStore from "@/components/BoxCut.vue";
+import TicketPrint from "@/components/TicketPrint.vue";
 import { useProductStore } from "@/stores/ProductStore";
 import { onKeyStroke } from "@vueuse/core";
 import { useOutlayStore } from "@/stores/OutlayStore";
 import { useSaleStore } from "@/stores/SaleStore";
 import { useBoxCutStore } from "@/stores/BoxCutStore";
+import { useTicketPrintStore } from "@/stores/TicketPrintStore";
+const tikcetStore = useTicketPrintStore();
 
 const boxCutStore = useBoxCutStore();
 const saleStore = useSaleStore();
