@@ -114,6 +114,13 @@
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group">
+                                <label>Notificar Stock minimo</label>
+                                <el-switch v-model="form.notification_minimum_qty" class="ml-2" inline-prompt
+                                    style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
 
                             </div>
                         </div>
@@ -162,7 +169,8 @@ const form = useForm({
     description: null,
     price: 0,
     cost: 0,
-    favorite: false
+    favorite: false,
+    notification_minimum_qty: false,
 });
 const options = [
     {

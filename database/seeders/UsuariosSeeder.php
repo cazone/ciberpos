@@ -18,19 +18,19 @@ class UsuariosSeeder extends Seeder
             'name'=> 'Carlos Arenas Zamora',
             'email'=> 'caz@caz.com',
             'password'=> bcrypt('password')
-        ])->assignRole('Root');
+        ])->assignRole('Admin');
 
         User::create([
-            'name'=> 'Jesus Bernardo Morales',
-            'email'=> 'jesus@comsustenta.com',
-            'password'=> bcrypt('password')
-        ])->assignRole('Normal');
-
-        User::create([
-            'name'=> 'Carlos Arenas Zamora',
-            'email'=> 'caz2@caz.com',
+            'name'=> 'Yuli Correa Perez',
+            'email'=> 'yuli@caz.com',
             'password'=> bcrypt('password')
         ])->assignRole('Admin');
+
+        User::create([
+            'name'=> 'Norma Arenas',
+            'email'=> 'norma@caz.com',
+            'password'=> bcrypt('password')
+        ])->assignRole('Normal');
 
 
     }

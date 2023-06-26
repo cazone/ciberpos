@@ -7,6 +7,7 @@ use App\Models\BoxCut;
 use App\Models\Outlay;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
+use Twilio\Rest\Client;
 
 class BoxCutController extends Controller
 {
@@ -20,7 +21,22 @@ class BoxCutController extends Controller
         //
     }
 
+    public function sendWhatsapp( $message){
 
+
+            $twilio = new Client('AC0bc253ba36563231d08d3ecf1c52d534', '7d0a57322f14f3593b5ecaf9d802f736');
+
+            $twilio->messages
+                                    ->create("whatsapp:+525585493795", // to
+                                       [
+                                           "from" => "whatsapp:+12542683908",
+                                           "body" =>  $message
+                                       ]
+                              );
+
+
+
+     }
     public function resume (){
 
             $sale     = Sale::where('user_id', auth()->user()->id)->whereDay('created_at', '=', date('d'))->sum('total');
@@ -69,6 +85,17 @@ class BoxCutController extends Controller
             'total'     => $request->total,
             'user_id'  => auth()->user()->id,
         ]);
+        $user = auth()->user()->name;
+        $total= $request->sale + $request->invoice   - $request->outlay;
+        $text = sprintf("Hola, este es el corte de *%s* \n Día: *%s* \n Venta POS: *$%s* \n Venta directa: *$%s* \n Gastos : *$%s* \n Total : *$%s* ",
+        $user,
+        date('d/m/Y'),
+        $request->invoice ,
+        $request->sale,
+        $request->outlay,
+        $total
+    );
+        $this->sendWhatsapp($text);
 
         return $this->sendResponse($boxcut, 'BoxCut successfully.');
     }

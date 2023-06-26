@@ -23,7 +23,8 @@ class Product extends Model
         'minimum_qty',
         'unit',
         'favorite',
-        'url_image'
+        'url_image',
+        'notification_minimum_qty'
     ];
 
     public function category (){

@@ -16,11 +16,11 @@ class RolSeeder extends Seeder
      */
     public function run()
     {
-      $roleAdmin = Role::create(['name'=> 'Root']);
+
       $roleAdmin = Role::create(['name'=> 'Admin']);
       $roleNormal = Role::create(['name'=> 'Normal']);
 
-  
+
 
     }
 }

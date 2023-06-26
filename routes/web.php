@@ -12,6 +12,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ShoppingController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Admin\RolesController;
+use App\Http\Controllers\Admin\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,5 +47,11 @@ Route::middleware(['auth:sanctum', 'verified',])->group(function () {
     Route::get('/pos-search',[PosController::class, 'search'])->name('search');
     Route::get('/ticket-print/{id}',[PosController::class, 'ticket_print'])->name('ticket.print');
     Route::get('/tickets',[PosController::class, 'tickets'])->name('tickets');
+    Route::get('/test',[PosController::class, 'test']);
+
+
+        //administracion
+        Route::resource('/roles', RolesController::class);
+        Route::resource('/users', UsersController::class);
 
 });

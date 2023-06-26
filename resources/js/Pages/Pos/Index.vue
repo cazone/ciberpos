@@ -48,7 +48,9 @@
                                 @click="posStore.delAllProducts"
                                 type="danger"
                                 plain
-                                >Borrar todo</el-button
+                                >
+                                <i class="fa fa-trash" data-bs-toggle="tooltip" title="" data-bs-original-title="fa fa-trash" aria-label="fa fa-trash"></i>
+                                Borrar todo</el-button
                             >
                         </div>
                         <el-table

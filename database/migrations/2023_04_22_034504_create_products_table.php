@@ -30,6 +30,7 @@ class CreateProductsTable extends Migration
             $table->integer('discount')->default(0);
             $table->enum('unit', ['Unidad', 'Fraccion'])->default('Unidad');
             $table->boolean('favorite')->default(0);
+            $table->boolean('notification_minimum_qty')->default(0);
             $table->string('url_image')->nullable();
             $table->timestamps();
         });

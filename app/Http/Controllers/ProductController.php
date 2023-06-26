@@ -59,6 +59,7 @@ class ProductController extends Controller
             'minimum_qty'=>'required',
             'unit'=>'required',
 
+
         ]);
 
         Product::create($request->all());
