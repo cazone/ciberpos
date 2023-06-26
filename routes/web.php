@@ -42,6 +42,6 @@ Route::middleware(['auth:sanctum', 'verified',])->group(function () {
     Route::post('boxcut-resume', [BoxCutController::class, 'resume'])->name('boxcut.resume');
     Route::post('/product/search',[ProductController::class, 'search'])->name('product.search');
     Route::get('/pos-search',[PosController::class, 'search'])->name('search');
-    Route::get('/pos-test',[PosController::class, 'test']);
+    Route::get('/ticket-print/{id}',[PosController::class, 'ticket_print'])->name('ticket.print');
 
 });

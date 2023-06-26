@@ -133,7 +133,7 @@ onMounted(async () => {
              total: data.price * amount - discount
          };
 
-         await  products.value.push(tempProducts);
+        await  products.value.push(tempProducts);
 
          loading.value = false;
          valSearch.value = '';
@@ -146,7 +146,11 @@ onMounted(async () => {
             discount: discount.value,
             subtotal: subtotal.value,
         }).then(function (response) {
+            console.log(response.data);
            if(response.data.success){
+            if (ticket.value){
+                window.open(route('ticket.print', {id: response.data.data.id}), '_blank');
+            }
             ElMessage.success('Factura guardada correctamente.')
             products.value = [];
             centerDialogVisible.value = false;

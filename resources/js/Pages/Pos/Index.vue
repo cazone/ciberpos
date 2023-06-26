@@ -54,7 +54,7 @@
                             v-loading="posStore.loading"
                             :data="posStore.products"
                             style="width: 100%"
-                            height="400"
+                            height="300"
                             highlight-current-row
                         >
                             <el-table-column type="index" width="50" />
@@ -172,6 +172,14 @@
                                     </li>
                                 </ul>
                                 <el-row class="row-bg" justify="end">
+                                    <el-button
+                                        plain
+                                        size="large"
+                                        @click="outlayStore.openDialog"
+                                    >
+
+                                        Reimprimir Ticket
+                                    </el-button>
                                     <el-button
                                         plain
                                         size="large"

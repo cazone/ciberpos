@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Invoice;
+use App\Models\TicketSetup;
 use Illuminate\Http\Request;
 use Codedge\Fpdf\Fpdf\Fpdf;
 
@@ -35,29 +37,34 @@ class PosController extends Controller
         return response()->json($products);
 
     }
-    public function test()
+    public function ticket_print($id)
     {
+        $invoice = Invoice::with('invoiceDetails', 'user', 'invoiceDetails.product')->find($id);
+        // return $invoice;
+
+        $ticket =  TicketSetup::first();
+
         $this->fpdf->SetMargins(4,10,4);
         $this->fpdf->AddPage();
- # Encabezado y datos de la empresa #
- $this->fpdf->Ln(20);
- $this->fpdf->SetFont('Arial','B',10);
-    $this->fpdf->SetTextColor(0,0,0);
-    $this->fpdf->MultiCell(0,5,utf8_decode(strtoupper("Nombre de empresa")),0,'C',false);
-    $this->fpdf->SetFont('Arial','',9);
-    $this->fpdf->MultiCell(0,5,utf8_decode("RFC: 0000000000"),0,'C',false);
-    $this->fpdf->MultiCell(0,5,utf8_decode("Direccion San Salvador, El Salvador"),0,'C',false);
-    $this->fpdf->MultiCell(0,5,utf8_decode("Teléfono: 00000000"),0,'C',false);
-    $this->fpdf->MultiCell(0,5,utf8_decode("Email: correo@ejemplo.com"),0,'C',false);
+        # Encabezado y datos de la empresa #
+        $this->fpdf->Ln(20);
+        $this->fpdf->SetFont('Arial','B',10);
+        $this->fpdf->SetTextColor(0,0,0);
+        $this->fpdf->MultiCell(0,5,utf8_decode(strtoupper($ticket->company_name)),0,'C',false);
+        $this->fpdf->SetFont('Arial','',9);
+        $this->fpdf->MultiCell(0,5,utf8_decode("RFC: " .$ticket->RFC),0,'C',false);
+        $this->fpdf->MultiCell(0,5,utf8_decode($ticket->address),0,'C',false);
+        $this->fpdf->MultiCell(0,5,utf8_decode("Teléfono: " . $ticket->phone),0,'C',false);
+        $this->fpdf->MultiCell(0,5,utf8_decode("Email: " . $ticket->email),0,'C',false);
       $this->fpdf->Ln(1);
       $this->fpdf->Cell(0,5,utf8_decode("------------------------------------------------------"),0,0,'C');
       $this->fpdf->Ln(5);
 
-      $this->fpdf->MultiCell(0,5,utf8_decode("Fecha: ".date("d/m/Y", strtotime("13-09-2022"))." ".date("h:s A")),0,'C',false);
+      $this->fpdf->MultiCell(0,5,utf8_decode("Fecha: ".date("d/m/Y h:s A")),0,'C',false);
     //   $this->fpdf->MultiCell(0,5,utf8_decode("Caja Nro: 1"),0,'C',false);
-      $this->fpdf->MultiCell(0,5,utf8_decode("Cajero: Carlos Alfaro"),0,'C',false);
+      $this->fpdf->MultiCell(0,5,utf8_decode("Atendio: " . $invoice->user->name),0,'C',false);
       $this->fpdf->SetFont('Arial','B',10);
-      $this->fpdf->MultiCell(0,5,utf8_decode(strtoupper("Ticket: 10021")),0,'C',false);
+      $this->fpdf->MultiCell(0,5,utf8_decode(strtoupper("Ticket: ". $invoice->id)),0,'C',false);
       $this->fpdf->SetFont('Arial','',10);
 
       $this->fpdf->Ln(1);
@@ -73,15 +80,22 @@ class PosController extends Controller
     $this->fpdf->Cell(72,5,utf8_decode("-------------------------------------------------------------------"),0,0,'C');
     $this->fpdf->Ln(3);
 
-
+   foreach ($invoice->invoiceDetails as $key => $detail) {
+        $this->fpdf->MultiCell(0,4,utf8_decode($detail->product->name_product),0,'C',false);
+        $this->fpdf->Cell(10,4,utf8_decode($key+1),0,0,'C');
+        $this->fpdf->Cell(19,4,utf8_decode("$".$detail->price),0,0,'C');
+        $this->fpdf->Cell(15,4,utf8_decode($detail->discount),0,0,'C');
+        $this->fpdf->Cell(28,4,utf8_decode("$".$detail->total),0,0,'C');
+        $this->fpdf->Ln(4);
+    }
 
     /*----------  Detalles de la tabla  ----------*/
-    $this->fpdf->MultiCell(0,4,utf8_decode("Nombre de producto a vender"),0,'C',false);
-    $this->fpdf->Cell(10,4,utf8_decode("7"),0,0,'C');
-    $this->fpdf->Cell(19,4,utf8_decode("$100 "),0,0,'C');
-    $this->fpdf->Cell(19,4,utf8_decode("$000.00 "),0,0,'C');
-    $this->fpdf->Cell(28,4,utf8_decode("$7000.00 "),0,0,'C');
-    $this->fpdf->Ln(4);
+    // $this->fpdf->MultiCell(0,4,utf8_decode("Nombre de producto a vender"),0,'C',false);
+    // $this->fpdf->Cell(10,4,utf8_decode("7"),0,0,'C');
+    // $this->fpdf->Cell(19,4,utf8_decode("$100 "),0,0,'C');
+    // $this->fpdf->Cell(19,4,utf8_decode("$000.00 "),0,0,'C');
+    // $this->fpdf->Cell(28,4,utf8_decode("$7000.00 "),0,0,'C');
+    // $this->fpdf->Ln(4);
     // $this->fpdf->MultiCell(0,4,utf8_decode("Garantía de fábrica: 2 Meses"),0,'C',false);
     // $this->fpdf->Ln(7);
     /*----------  Fin Detalles de la tabla  ----------*/
@@ -111,31 +125,31 @@ class PosController extends Controller
 
     $this->fpdf->Cell(18,5,utf8_decode(""),0,0,'C');
     $this->fpdf->Cell(22,5,utf8_decode("SUBTOTAL"),0,0,'R');
-    $this->fpdf->Cell(23,5,utf8_decode("$7000.00"),0,0,'R');
+    $this->fpdf->Cell(23,5,utf8_decode("$" .$invoice->subtotal),0,0,'R');
 
     $this->fpdf->Ln(5);
 
     $this->fpdf->Cell(18,5,utf8_decode(""),0,0,'C');
     $this->fpdf->Cell(22,5,utf8_decode("DESCUENTO"),0,0,'R');
-    $this->fpdf->Cell(23,5,utf8_decode("$7000.00"),0,0,'R');
+    $this->fpdf->Cell(23,5,utf8_decode("$". $invoice->discount),0,0,'R');
 
     $this->fpdf->Ln(5);
 
     $this->fpdf->Cell(18,5,utf8_decode(""),0,0,'C');
     $this->fpdf->Cell(22,5,utf8_decode("TOTAL"),0,0,'R');
-    $this->fpdf->Cell(23,5,utf8_decode("$7000.00"),0,0,'R');
+    $this->fpdf->Cell(23,5,utf8_decode("$". $invoice->total),0,0,'R');
 
     $this->fpdf->Ln(5);
 
     $this->fpdf->Cell(18,5,utf8_decode(""),0,0,'C');
-    $this->fpdf->Cell(22,5,utf8_decode("USTED AHORRA"),0,0,'R');
-    $this->fpdf->Cell(23,5,utf8_decode("$7000.00"),0,0,'R');
+    // $this->fpdf->Cell(22,5,utf8_decode("USTED AHORRA"),0,0,'R');
+    // $this->fpdf->Cell(23,5,utf8_decode("$7000.00"),0,0,'R');
 
     $this->fpdf->Ln(10);
 
-    $this->fpdf->MultiCell(0,5,utf8_decode("*** Precios de productos incluyen impuestos. Para poder realizar un reclamo o devolución debe de presentar este ticket ***"),0,'C',false);
+    $this->fpdf->MultiCell(0,5,utf8_decode($ticket->text_footer),0,'C',false);
     $this->fpdf->SetFont('Arial','B',9);
-    $this->fpdf->Cell(0,7,utf8_decode("Gracias por su compra"),'',0,'C');
+    $this->fpdf->Cell(0,7,utf8_decode($ticket->text_thanks),'',0,'C');
 
     $this->fpdf->Output("I","Ticket_Nro_1.pdf",true);
 
