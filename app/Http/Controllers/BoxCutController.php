@@ -24,17 +24,19 @@ class BoxCutController extends Controller
     public function sendWhatsapp( $message){
 
 
-            $twilio = new Client('AC0bc253ba36563231d08d3ecf1c52d534', '7d0a57322f14f3593b5ecaf9d802f736');
-
+            $twilio = new Client('AC0bc253ba36563231d08d3ecf1c52d534', 'de480c3dc19e9704550050479956c736');
+            $user = ['+525585493795', '+525530202888'
+        ];
+        foreach ($user as $key => $value) {
             $twilio->messages
-                                    ->create("whatsapp:+525585493795", // to
+                                    ->create("whatsapp:".$value, // to
                                        [
                                            "from" => "whatsapp:+12542683908",
                                            "body" =>  $message
                                        ]
                               );
 
-
+                            }
 
      }
     public function resume (){

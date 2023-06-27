@@ -16,35 +16,35 @@ class CategorySeeder extends Seeder
     {
         Category::create([
             'id'=> 1,
-            'name_category'=> 'Dulces',
+            'name'=> 'Dulces',
         ]);
         Category::create([
             'id'=> 2,
-            'name_category'=> 'Papeleria',
+            'name'=> 'Papeleria',
         ]);
         Category::create([
             'id'=> 3,
-            'name_category'=> 'Merceria',
+            'name'=> 'Merceria',
         ]);
         Category::create([
             'id'=> 4,
-            'name_category'=> 'Regalos',
+            'name'=> 'Regalos',
         ]);
         Category::create([
             'id'=> 5,
-            'name_category'=> 'Copias',
+            'name'=> 'Copias',
         ]);
         Category::create([
             'id'=> 6,
-            'name_category'=> 'Cuadernos',
+            'name'=> 'Cuadernos',
         ]);
         Category::create([
             'id'=> 7,
-            'name_category'=> 'Sin Categoria',
+            'name'=> 'Sin Categoria',
         ]);
         Category::create([
             'id'=> 8,
-            'name_category'=> 'Servicios',
+            'name'=> 'Servicios',
         ]);
     }
 }
