@@ -10,10 +10,14 @@
             <el-container>
                 <el-header>
                     <el-input
+
+                    style="  background-color: lightblue;border: 2px solid red;
+  border-radius: 4px;"
+  size="large"
                         ref="refSearch"
                         v-model="posStore.valSearch"
                         placeholder="Por favor, ingresa clave o codigo de barra del producto"
-                        class="input-with-select"
+                        class="my-paragraph"
                         @keyup.enter="posStore.searchProduct"
                         clearable
                     >
@@ -163,15 +167,15 @@
                                         </h4>
                                     </li>
                                     <li class="total-value">
-                                        <h3>Total</h3>
-                                        <h3>
+                                        <h2>Total</h2>
+                                        <h2>
                                             {{
                                                 numeralFormat(
                                                     posStore.total,
                                                     "$ 0,0[.]00"
                                                 )
                                             }}
-                                        </h3>
+                                        </h2>
                                     </li>
                                 </ul>
                                 <el-row class="row-bg" justify="end">
@@ -196,9 +200,10 @@
                                         Agregar Gasto (F2)
                                     </el-button>
                                     <el-button
-                                        plain
+                                    type="warning"
                                         size="large"
                                         @click="saleStore.openDialog"
+
                                     >
                                         <img
                                             src="assets/img/icons/dash2.svg"
@@ -207,9 +212,11 @@
                                         Agregar Venta (F3)
                                     </el-button>
                                     <el-button
-                                        plain
+
                                         size="large"
                                         @click="productStore.openDialog"
+                                        type="primary"
+
                                     >
                                         <img
                                             src="assets/img/icons/search.svg"
@@ -218,7 +225,7 @@
                                         />
                                         Buscar Producto (F1)
                                     </el-button>
-                                    <el-button @click="boxCutStore.openDialog" plain size="large">
+                                    <el-button @click="boxCutStore.openDialog"  type="info" size="large">
                                         <img
                                             src="assets/img/icons/purchase1.svg"
                                             alt="img"
@@ -229,8 +236,9 @@
                                     <el-button
                                         v-if="posStore.total > 0"
                                         @click="posStore.openCenterDialog"
-                                        plain
+
                                         size="large"
+                                        type="success"
                                     >
                                         <img
                                             src="assets/img/icons/cash.svg"
@@ -357,6 +365,9 @@ onKeyStroke(["F1", "F2"], (e) => {
 });
 </script>
 <style scoped>
+
+
+
 .scrollbar-flex-content {
     display: flex;
 }

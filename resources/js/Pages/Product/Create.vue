@@ -157,12 +157,13 @@ import JetButton from "@/Jetstream/Button.vue";
 import JetSecondaryButton from "@/Jetstream/SecondaryButton.vue";
 import { useForm } from "@inertiajs/inertia-vue3";
 const categories = computed(() => usePage().props.value.categories)
+const clave = computed(() => usePage().props.value.clave)
 const form = useForm({
     name_product: null,
     category_id: null,
     unit: 'Unidad',
-    code: null,
-    barcode: null,
+    code: clave.value,
+    barcode: clave.value,
     sku: null,
     minimum_qty: 0,
     quantity: 0,

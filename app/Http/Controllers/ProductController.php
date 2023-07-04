@@ -37,7 +37,9 @@ class ProductController extends Controller
     public function create()
     {
         return Inertia::render('Product/Create',[
-                'categories' => Category::all()
+                'categories' => Category::all(),
+                'clave' => Product::all()->last()->id + 1,
+
 
         ]);
     }
