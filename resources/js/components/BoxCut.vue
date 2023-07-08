@@ -23,12 +23,12 @@
             <el-text class="mx-1" size="large">Total sistema : {{ numeralFormat(boxCutStore.resumen.total, "$ 0,0[.]00") }}</el-text>
         </el-row>
         <el-row :gutter="20">
-            <el-input
+            <input
+                type="text"
                 v-model="boxCutStore.cash"
-                placeholder="Por favor, ingresa nombre del gasto"
-                class="input-with-select"
-                clearable>
-            </el-input>
+                placeholder="Por favor, ingresa total de efectivo"
+               >
+
         </el-row>
         <el-row :gutter="20">
             <el-text class="mx-1" size="large">Diferencia  : {{ numeralFormat(boxCutStore.totalUser , "$ 0,0[.]00") }}</el-text>
@@ -65,4 +65,19 @@ const boxCutStore = useBoxCutStore();
 // })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+input:focus {
+    outline: none !important;
+    border-color: #719ECE;
+    box-shadow: 0 0 10px #719ECE;
+    background-color: aquamarine;
+ }
+ input {
+    border: 2px solid red;
+                     border-radius: 4px; width: 100%; height: 50px; font-size: 22px;
+ caret-color: red;
+ caret-color: #ff0000;
+ caret-color: rgb(255, 0, 0);
+ caret-color: hsl(0, 97%, 50%);
+}
+</style>

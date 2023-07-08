@@ -2,15 +2,14 @@
   <el-dialog v-model="productStore.centerDialogVisible"
     :show-close="true" title="Buscar Producto" width="50%" center :close-on-click-modal="false">
     <el-row>
-        <el-input
-
+        <input
+type="text"
 v-model="productStore.valSearch"
 placeholder="Por favor, ingresa clave o codigo de barra del producto"
-class="input-with-select"
-@keyup.enter=""
-clearable
+
+
 >
-</el-input>
+
     </el-row>
     <el-row >
         <el-table v-loading="productStore.loading"
@@ -52,5 +51,18 @@ const productStore = useProductStore();
 </script>
 
 <style lang="scss" scoped>
-
+input:focus {
+    outline: none !important;
+    border-color: #719ECE;
+    box-shadow: 0 0 10px #719ECE;
+    background-color: aquamarine;
+ }
+ input {
+    border: 2px solid red;
+                     border-radius: 4px; width: 100%; height: 50px; font-size: 22px;
+ caret-color: red;
+ caret-color: #ff0000;
+ caret-color: rgb(255, 0, 0);
+ caret-color: hsl(0, 97%, 50%);
+}
 </style>
