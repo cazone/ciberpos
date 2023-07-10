@@ -41,6 +41,11 @@ class AppServiceProvider extends ServiceProvider
                 'role' => auth()->user() ? auth()->user()->getRoleNames() : null,
             ];
         });
+        Inertia::share("path", function () {
+            return  [
+                'url' => config('app.url'),
+            ];
+        });
 
     }
 }

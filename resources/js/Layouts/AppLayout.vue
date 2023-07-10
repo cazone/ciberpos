@@ -193,7 +193,7 @@ export default {
   data() {
     return {
         dialogAcerca: false,
-      showingNavigationDropdown: false,
+          showingNavigationDropdown: false,
         url: null,
     }
   },
