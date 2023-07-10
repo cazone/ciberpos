@@ -9,7 +9,16 @@
         <div class="common-layout">
             <el-container>
                 <el-header>
-                    <el-input
+                    <input
+                    ref="refSearch"
+                        v-model="posStore.valSearch"
+                        @keyup.enter="posStore.searchProduct"
+                    type="text"
+                    placeholder="Por favor, ingresa clave o codigo de barra del producto (F1)"
+
+                    key="">
+
+                    <!-- <el-input
 
                     style="  background-color: lightblue;border: 2px solid red;
   border-radius: 4px;"
@@ -21,7 +30,7 @@
                         @keyup.enter="posStore.searchProduct"
                         clearable
                     >
-                    </el-input>
+                    </el-input> -->
                 </el-header>
 
                 <el-container>
@@ -47,7 +56,24 @@
                             <h4>
                                 Total items : {{ posStore.products.length }}
                             </h4>
+                            <el-button
 
+                                        size="large"
+                                        @click="tikcetStore.openDialog"
+                                    >
+
+                                    <h3> Reimprimir Ticket </h3>
+                                    </el-button>
+                            <el-button
+
+size="large"
+@click="productStore.openDialog"
+type="primary"
+
+>
+
+<h3>Buscar Producto (F4)</h3>
+</el-button>
                             <el-button
                                 @click="posStore.delAllProducts"
                                 type="danger"
@@ -79,7 +105,7 @@
                                     <el-input-number
                                         v-model="scope.row.amount"
                                         :min="1"
-                                        :max="10"
+
                                         size="small"
                                     />
                                 </template>
@@ -179,14 +205,7 @@
                                     </li>
                                 </ul>
                                 <el-row class="row-bg" justify="end">
-                                    <el-button
-                                        plain
-                                        size="large"
-                                        @click="tikcetStore.openDialog"
-                                    >
 
-                                        Reimprimir Ticket
-                                    </el-button>
                                     <el-button
                                         plain
                                         size="large"
@@ -197,7 +216,7 @@
                                             alt="img"
                                             class="me-2"
                                         />
-                                        Agregar Gasto (F2)
+                                        <h2>Agregar Gasto (F2)</h2>
                                     </el-button>
                                     <el-button
                                     type="warning"
@@ -209,29 +228,16 @@
                                             src="assets/img/icons/dash2.svg"
                                             alt="img"
                                         />
-                                        Agregar Venta (F3)
+                                        <h2>Agregar Venta (F3)</h2>
                                     </el-button>
-                                    <el-button
 
-                                        size="large"
-                                        @click="productStore.openDialog"
-                                        type="primary"
-
-                                    >
-                                        <img
-                                            src="assets/img/icons/search.svg"
-                                            alt="img"
-                                            class="me-2"
-                                        />
-                                        Buscar Producto (F1)
-                                    </el-button>
                                     <el-button @click="boxCutStore.openDialog"  type="info" size="large">
                                         <img
                                             src="assets/img/icons/purchase1.svg"
                                             alt="img"
                                             class="me-2"
                                         />
-                                        Corte de Caja
+                                      <h2>Corte de Caja</h2>
                                     </el-button>
                                     <el-button
                                         v-if="posStore.total > 0"
@@ -245,7 +251,7 @@
                                             alt="img"
                                             class="me-2"
                                         />
-                                        Cobrar Cuenta
+                                        <h2> Cobrar Cuenta </h2>
                                     </el-button>
                                 </el-row>
                             </div>
@@ -264,13 +270,13 @@
             :close-on-click-modal="false"
         >
             <el-row justify="center">
-                <el-input
-                    ref="refPay"
-                    @keyup.enter=""
+                <input
+
+                    type="text"
                     v-model="posStore.pay"
-                    size="large"
-                    placeholder="Please Input"
-                />
+
+                    placeholder="porfavor ingrese el pago"
+                >
             </el-row>
             <el-row justify="center">
                 <h3>Cambio {{ posStore.change }}</h3>
@@ -295,7 +301,7 @@
                         >Cancel</el-button
                     >
                     <el-button type="primary" @click="posStore.saveInvoice">
-                        Confirm
+                        Confirmar
                     </el-button>
                 </span>
             </template>
@@ -345,16 +351,19 @@ const addFavorite = (data) => {
     console.log(data);
     posStore.saveSetInvoice(data);
 };
-onKeyStroke(["F1", "F2"], (e) => {
+onKeyStroke(["F1", "F2", "F3","F4"], (e) => {
     switch (e.code) {
         case "F1":
-            productStore.openDialog();
+            refSearch.value.focus();
             break;
         case "F2":
             outlayStore.openDialog();
             break;
         case "F3":
             saleStore.openDialog();
+            break;
+        case "F4":
+            productStore.openDialog();
             break;
 
         default:
@@ -366,7 +375,21 @@ onKeyStroke(["F1", "F2"], (e) => {
 </script>
 <style scoped>
 
-
+input:focus {
+    outline: none !important;
+    border-color: #719ECE;
+    box-shadow: 0 0 10px #719ECE;
+    background-color: aquamarine;
+ }
+ input {
+    border: 2px solid red;
+                     border-radius: 4px; width: 100%; height: 50px; font-size: 22px;
+ caret-shape: underscore;
+ caret-color: red;
+ caret-color: #ff0000;
+ caret-color: rgb(255, 0, 0);
+ caret-color: hsl(0, 97%, 50%);
+}
 
 .scrollbar-flex-content {
     display: flex;

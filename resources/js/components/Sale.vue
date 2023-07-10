@@ -2,25 +2,24 @@
   <el-dialog  v-model="saleStore.centerDialogVisible"
     :show-close="true" title="Agregar venta" width="30%" center :close-on-click-modal="false">
     <el-row :gutter="20">
-        <el-input
-
+        <input
+            type="text"
             v-model="saleStore.name"
-            placeholder="Por favor, ingresa nombre del gasto"
-            class="input-with-select"
-            clearable>
-</el-input>
+            placeholder="Por favor ingresa nombre de lo vendido"
+
+            >
+
     </el-row>
 <el-divider></el-divider>
     <el-row >
-        <el-input
+        <input
+        type="numbre"
 v-model="saleStore.pay"
-placeholder="Por favor, monto gastado"
-class="input-with-select"
+placeholder="Por favor ingresa monto vendido"
 
-clearable
 @keyup.enter="saleStore.save"
 >
-</el-input>
+
 
     </el-row>
     <template #footer>
@@ -54,4 +53,19 @@ const saleStore = useSaleStore();
 </script>
 
 <style lang="scss" scoped>
+
+input:focus {
+    outline: none !important;
+    border-color: #719ECE;
+    box-shadow: 0 0 10px #719ECE;
+    background-color: aquamarine;
+ }
+ input {
+    border: 2px solid red;
+                     border-radius: 4px; width: 100%; height: 50px; font-size: 22px;
+ caret-color: red;
+ caret-color: #ff0000;
+ caret-color: rgb(255, 0, 0);
+ caret-color: hsl(0, 97%, 50%);
+}
 </style>

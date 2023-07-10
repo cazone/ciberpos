@@ -9,7 +9,7 @@ export const useBoxCutStore = defineStore('boxCut', () => {
      const centerDialogVisible = ref(false);
      const loading = ref(false);
      const resumen = ref([]);
-     const cash = ref(0);
+     const cash = ref('');
      const totalUser = ref(0);
 
     watch(cash, (value) => {

@@ -2,25 +2,24 @@
   <el-dialog v-model="outlayStore.centerDialogVisible"
     :show-close="true" title="Agregar gasto" width="30%" center :close-on-click-modal="false">
     <el-row :gutter="20">
-        <el-input
-
+        <input
             v-model="outlayStore.name"
-            placeholder="Por favor, ingresa nombre del gasto"
-            class="input-with-select"
-            clearable>
-</el-input>
+            type="text"
+            placeholder="Por favor ingresa nombre del gasto"
+           >
+
     </el-row>
 <el-divider></el-divider>
     <el-row >
-        <el-input
-        v-loading="loading"
+        <input
+        type="text"
+
 v-model="outlayStore.pay"
-placeholder="Por favor, monto gastado"
-class="input-with-select"
+placeholder="Por favor ingresa monto del gasto"
 @keyup.enter="outlayStore.saveOutlay"
-clearable
+
 >
-</el-input>
+
 
     </el-row>
     <template #footer>
@@ -47,5 +46,18 @@ const outlayStore = useOutlayStore();
 </script>
 
 <style lang="scss" scoped>
-
+input:focus {
+    outline: none !important;
+    border-color: #719ECE;
+    box-shadow: 0 0 10px #719ECE;
+    background-color: aquamarine;
+ }
+ input {
+    border: 2px solid red;
+                     border-radius: 4px; width: 100%; height: 50px; font-size: 22px;
+ caret-color: red;
+ caret-color: #ff0000;
+ caret-color: rgb(255, 0, 0);
+ caret-color: hsl(0, 97%, 50%);
+}
 </style>
