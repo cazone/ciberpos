@@ -25,9 +25,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $invoice  = Invoice::whereMonth('created_at', '=', date('m'));
-        $sales    = Sale::whereMonth('created_at', '=', date('m'));
-        $outlay = Outlay::whereMonth('created_at', '=', date('m'));
+        $invoice  = Invoice::whereMonth('created_at', '=', date('m'))->where('user_id', auth()->user()->id);
+        $sales    = Sale::whereMonth('created_at', '=', date('m'))->where('user_id', auth()->user()->id);
+        $outlay   = Outlay::whereMonth('created_at', '=', date('m'))->where('user_id', auth()->user()->id);
 
         return Inertia::render('Dashboard',[
             'sales' => $sales->sum('total') + $invoice->sum('total'),
