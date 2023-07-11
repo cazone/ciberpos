@@ -11,12 +11,12 @@
                  <div class="header-left active">
                   <Link :href="route('dashboard')">
                     <a  class="logo">
-                        <img :src=" url + '/assets/img/logo.png'"  alt="">
+                        <img :src=" $page.props.path.url  + '/assets/img/logo.png'"  alt="">
                     </a>
                    </Link>
                     <Link :href="route('dashboard')">
                     <a class="logo-small">
-                        <img :src="url + '/assets/img/logo-small.png'"  alt="">
+                        <img :src="$page.props.path.url  + '/assets/img/logo-small.png'"  alt="">
                     </a>
                 </Link>
                     <a id="toggle_btn" @click="toggle_btn" href="javascript:void(0);">
@@ -57,13 +57,13 @@
                                 </div>
                                 <hr class="m-0">
                                 <Link :href="route('profile.show')" >
-                                <a class="dropdown-item" > <i class="me-2"  data-feather="user"></i> My Profile</a>
+                                <a class="dropdown-item" > <i class="me-2"  data-feather="user"></i>Mi Perfil</a>
                                 </Link>
 
                                 <hr class="m-0">
                                   <form @submit.prevent="logout">
                                         <jet-dropdown-link as="button">
-                                                  <a class="dropdown-item logout pb-0"><img :src=" url + '/assets/img/icons/log-out.svg'" class="me-2" alt="img">Logout</a>
+                                                  <a class="dropdown-item logout pb-0"><img :src=" url + '/assets/img/icons/log-out.svg'" class="me-2" alt="img">Salir</a>
                                         </jet-dropdown-link>
                                  </form>
 
@@ -97,7 +97,7 @@
 
                             <li>
                             <Link :href="route('dashboard')" >
-                                <img :src="url + '/assets/img/icons/dashboard.svg'" alt="img"><span> Dashboard</span>
+                                <img :src="$page.props.path.url + '/assets/img/icons/dashboard.svg'" alt="img"><span> Dashboard</span>
                                 </Link>
                             </li>
                             <li>
@@ -107,7 +107,7 @@
                                 </Link>
                             </li>
 							<li class="submenu" v-if="role.includes('Admin')">
-								<a href="javascript:void(0);"><img :src="url + '/assets/img/icons/product.svg'" alt="img"><span> Productos</span> <span class="menu-arrow"></span></a>
+								<a href="javascript:void(0);"><img :src="$page.props.path.url  + '/assets/img/icons/product.svg'" alt="img"><span> Productos</span> <span class="menu-arrow"></span></a>
 								<ul>
                                     <li><Link :href="route('product.index')" >Lista de Productos</Link></li>
                                     <li><Link :href="route('product.create')" >Agregar Producto</Link></li>
@@ -119,7 +119,7 @@
 								</ul>
 							</li>
 							<li class="submenu" v-if="role.includes('Admin')">
-								<a href="javascript:void(0);"><img :src="url + '/assets/img/icons/transcation.svg'" alt="img"><span> Compras</span> <span class="menu-arrow"></span></a>
+								<a href="javascript:void(0);"><img :src="$page.props.path.url  + '/assets/img/icons/transcation.svg'" alt="img"><span> Compras</span> <span class="menu-arrow"></span></a>
 								<ul>
                                     <!-- <li><Link :href="route('product.index')" >Lista de Productos</Link></li> -->
                                     <li><Link :href="route('shopping.index')" >Agregar Compras</Link></li>
@@ -127,7 +127,7 @@
 								</ul>
 							</li>
 							<li  class="submenu"  v-if="role.includes('Admin')">
-								<a href="javascript:void(0);"><img :src="url + '/assets/img/icons/settings.svg'" alt="img"><span> Administrador</span> <span class="menu-arrow"></span></a>
+								<a href="javascript:void(0);"><img :src="$page.props.path.url  + '/assets/img/icons/settings.svg'" alt="img"><span> Administrador</span> <span class="menu-arrow"></span></a>
 								<ul>
                                     <!-- <li><Link :href="route('product.index')" >Lista de Productos</Link></li> -->
                                     <li><Link :href="route('users.index')" >Usuario</Link></li>
