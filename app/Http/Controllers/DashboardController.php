@@ -30,12 +30,12 @@ class DashboardController extends Controller
             $invoice  = Invoice::whereMonth('created_at', '=', date('m'));
             $sales    = Sale::whereMonth('created_at', '=', date('m'));
             $outlay   = Outlay::whereMonth('created_at', '=', date('m'));
-            $invoices = InvoiceDetail::with('product', 'user')->orderBy('id', 'desc')->paginate(20);
+            $invoices = InvoiceDetail::with('product', 'user')->whereDay('created_at', '=', date('d'))->orderBy('id', 'desc')->paginate(20);
         }else{
         $invoice  = Invoice::whereMonth('created_at', '=', date('m'))->where('user_id', auth()->user()->id);
         $sales    = Sale::whereMonth('created_at', '=', date('m'))->where('user_id', auth()->user()->id);
         $outlay   = Outlay::whereMonth('created_at', '=', date('m'))->where('user_id', auth()->user()->id);
-        $invoices = InvoiceDetail::with('product', 'user')->where('id', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(20);
+        $invoices = InvoiceDetail::with('product', 'user')->whereDay('created_at', '=', date('d'))->where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(20);
         }
 
         return Inertia::render('Dashboard',[

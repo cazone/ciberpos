@@ -46,6 +46,7 @@ class BoxCutController extends Controller
             $outlay   = Outlay::where('user_id', auth()->user()->id)->whereDay('created_at', '=', date('d'))->sum('total');
 
 
+
             $result =[
                 'invoice'   => $invoice,
                 'outlay' => $outlay,
