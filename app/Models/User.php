@@ -23,10 +23,10 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
     //PARA ACTIVAR SISTEMA DE ROLES
-    use HasRoles; 
+    use HasRoles;
     use LogsActivity;
 
-    
+
 
     /**
      * The attributes that are mass assignable.
@@ -74,4 +74,7 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+     public function hasRole($role){
+        return $this->roles()->where('name', $role)->count() == 1;
+     }
 }
