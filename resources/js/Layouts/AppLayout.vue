@@ -63,7 +63,7 @@
                                 <hr class="m-0">
                                   <form @submit.prevent="logout">
                                         <jet-dropdown-link as="button">
-                                                  <a class="dropdown-item logout pb-0"><img :src=" url + '/assets/img/icons/log-out.svg'" class="me-2" alt="img">Salir</a>
+                                                  <a class="dropdown-item logout pb-0"><img :src=" $page.props.path.url + '/assets/img/icons/log-out.svg'" class="me-2" alt="img">Salir</a>
                                         </jet-dropdown-link>
                                  </form>
 
