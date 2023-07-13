@@ -31,20 +31,37 @@ class DashboardController extends Controller
             $sales    = Sale::whereMonth('created_at', '=', date('m'));
             $outlay   = Outlay::whereMonth('created_at', '=', date('m'));
             $invoices = InvoiceDetail::with('product', 'user')->whereDay('created_at', '=', date('d'))->orderBy('id', 'desc')->paginate(20);
+            $salesRows = $sales->whereDay('created_at', '=', date('d'))->orderBy('created_at', 'desc')->get();
+            $salesTotal = $sales->whereDay('created_at', '=', date('d'))->sum('total');
+            $invoiceTotal = $invoice->whereDay('created_at', '=', date('d'))->sum('total');
+            $outlayTotal = $outlay->whereDay('created_at', '=', date('d'))->sum('total');
+            $outlayRows = $outlay->whereDay('created_at', '=', date('d'))->orderBy('created_at', 'desc')->get();
+
         }else{
         $invoice  = Invoice::whereMonth('created_at', '=', date('m'))->where('user_id', auth()->user()->id);
         $sales    = Sale::whereMonth('created_at', '=', date('m'))->where('user_id', auth()->user()->id);
         $outlay   = Outlay::whereMonth('created_at', '=', date('m'))->where('user_id', auth()->user()->id);
         $invoices = InvoiceDetail::with('product', 'user')->whereDay('created_at', '=', date('d'))->where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(20);
-        }
+        $salesRows = $sales->whereDay('created_at', '=', date('d'))->where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
+        $salesTotal = $sales->whereDay('created_at', '=', date('d'))->where('user_id', auth()->user()->id)->sum('total');
+        $invoiceTotal = $invoice->whereDay('created_at', '=', date('d'))->where('user_id', auth()->user()->id)->sum('total');
+        $outlayTotal = $outlay->whereDay('created_at', '=', date('d'))->where('user_id', auth()->user()->id)->sum('total');
+        $outlayRows = $outlay->whereDay('created_at', '=', date('d'))->where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
+
+    }
 
         return Inertia::render('Dashboard',[
+            'salesRows' =>  $salesRows ,
+            'salesTotal' => $salesTotal,
             'sales' => $sales->sum('total') + $invoice->sum('total'),
             'mes' => date('m'),
             'sales_day' => $sales->whereDay('created_at', '=', date('d'))->sum('total') + $invoice->whereDay('created_at', '=', date('d'))->sum('total'),
             'outlay_day' => $outlay->whereDay('created_at', '=', date('d'))->sum('total') ,
             'outlay' => $outlay->sum('total'),
+            'outlayTotal' => $outlayTotal,
+            'outlayRows' => $outlayRows,
             'invoices' => $invoices,
+            'invoiceTotal' => $invoiceTotal,
         ]);
     }
 
