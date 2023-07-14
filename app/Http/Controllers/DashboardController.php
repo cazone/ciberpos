@@ -28,9 +28,9 @@ class DashboardController extends Controller
     {
         if (auth()->user()->hasRole('Admin')){
             $invoice  = Invoice::whereMonth('created_at', '=', date('m'));
-            $sales    = Sale::whereMonth('created_at', '=', date('m'));
-            $outlay   = Outlay::whereMonth('created_at', '=', date('m'));
-            $invoices = InvoiceDetail::with('product', 'user')->whereDay('created_at', '=', date('d'))->orderBy('id', 'desc')->paginate(20);
+            $sales    = Sale::with('user')->whereMonth('created_at', '=', date('m'));
+            $outlay   = Outlay::with('user')->whereMonth('created_at', '=', date('m'));
+            $invoices = InvoiceDetail::with('product', 'user')->whereDay('created_at', '=', date('d'))->orderBy('id', 'desc')->paginate(10);
             $salesRows = $sales->whereDay('created_at', '=', date('d'))->orderBy('created_at', 'desc')->get();
             $salesTotal = $sales->whereDay('created_at', '=', date('d'))->sum('total');
             $invoiceTotal = $invoice->whereDay('created_at', '=', date('d'))->sum('total');
@@ -39,9 +39,9 @@ class DashboardController extends Controller
 
         }else{
         $invoice  = Invoice::whereMonth('created_at', '=', date('m'))->where('user_id', auth()->user()->id);
-        $sales    = Sale::whereMonth('created_at', '=', date('m'))->where('user_id', auth()->user()->id);
-        $outlay   = Outlay::whereMonth('created_at', '=', date('m'))->where('user_id', auth()->user()->id);
-        $invoices = InvoiceDetail::with('product', 'user')->whereDay('created_at', '=', date('d'))->where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(20);
+        $sales    = Sale::with('user')->whereMonth('created_at', '=', date('m'))->where('user_id', auth()->user()->id);
+        $outlay   = Outlay::with('user')->whereMonth('created_at', '=', date('m'))->where('user_id', auth()->user()->id);
+        $invoices = InvoiceDetail::with('product', 'user')->whereDay('created_at', '=', date('d'))->where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(10);
         $salesRows = $sales->whereDay('created_at', '=', date('d'))->where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
         $salesTotal = $sales->whereDay('created_at', '=', date('d'))->where('user_id', auth()->user()->id)->sum('total');
         $invoiceTotal = $invoice->whereDay('created_at', '=', date('d'))->where('user_id', auth()->user()->id)->sum('total');

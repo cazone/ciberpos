@@ -9,6 +9,7 @@ use App\Http\Controllers\OutlayController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PrinterController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ShoppingController;
 use App\Http\Controllers\DashboardController;
@@ -48,6 +49,7 @@ Route::middleware(['auth:sanctum', 'verified',])->group(function () {
     Route::get('/ticket-print/{id}',[PosController::class, 'ticket_print'])->name('ticket.print');
     Route::get('/tickets',[PosController::class, 'tickets'])->name('tickets');
     Route::get('/test',[PosController::class, 'test']);
+    Route::get('/report/day',[ReportsController::class, 'getDay'])->name('report.day');
 
 
         //administracion

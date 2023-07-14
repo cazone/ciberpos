@@ -114,7 +114,7 @@
 </div>
 
 <div class="row">
-<div class="col-lg-4 col-sm-6 col-12">
+<div class="col-lg-6 col-sm-6 col-12">
     <div class="card-body">
 <h4 class="card-title">Gastos | Total: {{ numeralFormat(outlayTotal, "$ 0,0[.]00" ) }}</h4>
     <el-table :data="outlayRows"  style="width: 100%">
@@ -132,11 +132,17 @@
                   {{  moment(scope.row.created_at).lang("es").format("MMMM D, h:mm:ss a")}}
                 </template>
             </el-table-column>
+            <el-table-column prop="ussr_id" label="Vendio">
+                <template #default="scope">
+                  {{  scope.row.user.name }}
+                </template>
+            </el-table-column>
+
 
     </el-table>
     </div>
     </div>
-<div class="col-lg-4 col-sm-6 col-12">
+<div class="col-lg-6 col-sm-6 col-12">
     <div class="card-body">
 <h4 class="card-title">Venta Directa | Total: {{ numeralFormat(salesTotal, "$ 0,0[.]00" ) }}</h4>
     <el-table :data="salesRows"  style="width: 100%">
@@ -152,6 +158,11 @@
             <el-table-column    prop="created_at" label="Fecha"  >
                 <template #default="scope">
                   {{  moment(scope.row.created_at).lang("es").format("MMMM D, h:mm:ss a")}}
+                </template>
+            </el-table-column>
+            <el-table-column prop="ussr_id" label="Vendio">
+                <template #default="scope">
+                  {{  scope.row.user.name }}
                 </template>
             </el-table-column>
 
