@@ -56,10 +56,11 @@ class ProductController extends Controller
             'name_product'=>'required',
             'price'=>'required',
             'category_id'=>'required',
-            'code'=>'required',
+            'code'=>['required', 'unique:products'],
             'quantity'=>'required',
             'minimum_qty'=>'required',
             'unit'=>'required',
+            'barcode'=>['required', 'unique:products'],
 
 
         ]);

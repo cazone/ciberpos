@@ -54,7 +54,7 @@
 
 </div>
 <div class="card-body">
-<h4 class="card-title">Productos Vendidos</h4>
+<h4 class="card-title">Productos Vendidos | Total: {{ numeralFormat(invoiceTotal, "$ 0,0[.]00" ) }}</h4>
 <el-table :data="invoices.data"  style="width: 100%">
         <el-table-column  fixed  prop="id" label="ID" width="60" />
         <el-table-column prop="product" label="Nombre producto">
@@ -112,6 +112,66 @@
         </nav>
 
 </div>
+
+<div class="row">
+<div class="col-lg-6 col-sm-6 col-12">
+    <div class="card-body">
+<h4 class="card-title">Gastos | Total: {{ numeralFormat(outlayTotal, "$ 0,0[.]00" ) }}</h4>
+    <el-table :data="outlayRows"  style="width: 100%">
+        <el-table-column  fixed  prop="id" label="ID"  />
+        <el-table-column  fixed  prop="name_outlay" label="Nombre"  />
+        <el-table-column    prop="total" label="Total" >
+                <template #default="scope">
+                  {{ numeralFormat(scope.row.total, "$ 0,0[.]00" ) }}
+                </template>
+
+
+            </el-table-column>
+            <el-table-column    prop="created_at" label="Fecha"  >
+                <template #default="scope">
+                  {{  moment(scope.row.created_at).lang("es").format("MMMM D, h:mm:ss a")}}
+                </template>
+            </el-table-column>
+            <el-table-column prop="ussr_id" label="Vendio">
+                <template #default="scope">
+                  {{  scope.row.user.name }}
+                </template>
+            </el-table-column>
+
+
+    </el-table>
+    </div>
+    </div>
+<div class="col-lg-6 col-sm-6 col-12">
+    <div class="card-body">
+<h4 class="card-title">Venta Directa | Total: {{ numeralFormat(salesTotal, "$ 0,0[.]00" ) }}</h4>
+    <el-table :data="salesRows"  style="width: 100%">
+        <el-table-column  fixed  prop="id" label="ID"  />
+        <el-table-column  fixed  prop="name_sale" label="Nombre"  />
+        <el-table-column    prop="total" label="Total" >
+                <template #default="scope">
+                  {{ numeralFormat(scope.row.total, "$ 0,0[.]00" ) }}
+                </template>
+
+
+            </el-table-column>
+            <el-table-column    prop="created_at" label="Fecha"  >
+                <template #default="scope">
+                  {{  moment(scope.row.created_at).lang("es").format("MMMM D, h:mm:ss a")}}
+                </template>
+            </el-table-column>
+            <el-table-column prop="ussr_id" label="Vendio">
+                <template #default="scope">
+                  {{  scope.row.user.name }}
+                </template>
+            </el-table-column>
+
+    </el-table>
+    </div>
+    </div>
+
+</div>
+
   </app-layout>
 </template>
 
@@ -131,5 +191,10 @@ const sales_day = computed(() => usePage().props.value.sales_day)
 const outlay_day = computed(() => usePage().props.value.outlay_day)
 const outlay = computed(() => usePage().props.value.outlay)
 const invoices = computed(() => usePage().props.value.invoices)
+const salesRows = computed(() => usePage().props.value.salesRows)
+const salesTotal = computed(() => usePage().props.value.salesTotal)
+const invoiceTotal = computed(() => usePage().props.value.invoiceTotal)
+const outlayTotal = computed(() => usePage().props.value.outlayTotal)
+const outlayRows = computed(() => usePage().props.value.outlayRows)
 
 </script>

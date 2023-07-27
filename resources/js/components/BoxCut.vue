@@ -41,6 +41,7 @@
                 >
 
                 <el-button
+                     v-if="boxCutStore.cash > 0"
                     v-loading="boxCutStore.loading"
                     type="primary"
                     @click="boxCutStore.save"

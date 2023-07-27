@@ -36,10 +36,6 @@
                 <ul class="nav user-menu">
 
 
-
-
-
-
                     <li class="nav-item dropdown has-arrow main-drop">
                         <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
                             <span class="user-img"><img :src="$page.props.user.profile_photo_url" alt="">
@@ -132,6 +128,15 @@
                                     <!-- <li><Link :href="route('product.index')" >Lista de Productos</Link></li> -->
                                     <li><Link :href="route('users.index')" >Usuario</Link></li>
                                     <li><Link :href="route('users.create')" >Crear Usuario</Link></li>
+
+								</ul>
+							</li>
+							<li  class="submenu"  v-if="role.includes('Admin')">
+								<a href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span> Reportes</span> <span class="menu-arrow"></span></a>
+								<ul>
+                                    <!-- <li><Link :href="route('product.index')" >Lista de Productos</Link></li> -->
+                                    <li><Link :href="route('report.day')" >Ventas por dia</Link></li>
+
 
 								</ul>
 							</li>
