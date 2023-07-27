@@ -91,7 +91,7 @@ class PosController extends Controller
 
    foreach ($invoice->invoiceDetails as $key => $detail) {
         $this->fpdf->MultiCell(0,4,utf8_decode($detail->product->name_product),0,'C',false);
-        $this->fpdf->Cell(10,4,utf8_decode($key+1),0,0,'C');
+        $this->fpdf->Cell(10,4,utf8_decode($detail->amount),0,0,'C');
         $this->fpdf->Cell(19,4,utf8_decode("$".$detail->price),0,0,'C');
         $this->fpdf->Cell(15,4,utf8_decode($detail->discount),0,0,'C');
         $this->fpdf->Cell(28,4,utf8_decode("$".$detail->total),0,0,'C');
