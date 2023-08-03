@@ -92,6 +92,15 @@ import { usePage } from '@inertiajs/inertia-vue3'
 import { useForm } from '@inertiajs/inertia-vue3'
 import { ElMessage } from 'element-plus'
 
+
+
+console.log("lo que quieres imprimir")
+
+
+
+
+
+
 const form = useForm({
 
 

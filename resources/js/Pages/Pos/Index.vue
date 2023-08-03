@@ -37,6 +37,8 @@
                     <el-aside width="10%">
                         <el-scrollbar max-height="400px">
                             <ul class="inbox-menu">
+
+
                                 <li>
                                     <a
                                         href="javascript:void(0);"
@@ -56,6 +58,7 @@
                             <h4>
                                 Total items : {{ posStore.products.length }}
                             </h4>
+
                             <el-button
 
                                         size="large"
@@ -83,6 +86,7 @@ type="primary"
                                 Borrar todo</el-button
                             >
                         </div>
+
                         <el-table
                             v-loading="posStore.loading"
                             :data="posStore.products"
@@ -182,7 +186,15 @@ type="primary"
                                         </h4>
                                     </li>
                                     <li>
+                                        <input
+v-model="posStore.descuento"
+style="width: 250px;"
+type="text"
+placeholder="Aplicar descuento"
+
+key="">
                                         <h4>Descuentos</h4>
+
                                         <h4>
                                             {{
                                                 numeralFormat(

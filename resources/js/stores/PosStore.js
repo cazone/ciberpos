@@ -16,6 +16,7 @@ export const usePosStore = defineStore('pos', () => {
     const centerDialogVisible = ref(false);
     const ticket = ref(false);
     const pay = ref(0);
+    const descuento = ref(0);
 
     const change = ref(0);
 
@@ -28,6 +29,25 @@ onMounted(async () => {
     }
         productsStorage.value = products.value;
 }),
+    watch (descuento,
+        (newValue, oldValue) => {
+            loading.value = true;
+            total.value = 0;
+            discount.value = 0;
+            subtotal.value = 0;
+
+             products.value.forEach(item => {
+                item.discountPorcent = newValue / 100;
+              item.total = (item.price * item.amount) - item.discount;
+              item.subtotal = item.price * item.amount;
+              item.discount = item.price * item.amount * item.discountPorcent;
+              subtotal.value += item.subtotal ;
+              total.value += item.total;
+              discount.value += item.discount;
+            });
+            loading.value = false;
+            productsStorage.value = products.value;
+         }, { deep: true })
 
     watch(pay, (newX) => {
         change.value = newX - total.value;
@@ -167,7 +187,7 @@ onMounted(async () => {
 
     return {valSearch, searchProduct, products, message, loading, total, delProduct,
         delAllProducts, discount, centerDialogVisible, ticket, change, pay, openCenterDialog,
-        subtotal, saveInvoice, saveSetInvoice
+        subtotal, saveInvoice, saveSetInvoice, descuento
     }
 
 })
