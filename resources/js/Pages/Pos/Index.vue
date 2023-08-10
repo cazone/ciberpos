@@ -186,14 +186,14 @@ type="primary"
                                         </h4>
                                     </li>
                                     <li>
-                                        <input
+
+                                        <h4>Descuentos  <input
 v-model="posStore.descuento"
 style="width: 250px;"
 type="text"
 placeholder="Aplicar descuento"
 
-key="">
-                                        <h4>Descuentos</h4>
+key=""></h4>
 
                                         <h4>
                                             {{
