@@ -52,7 +52,7 @@ Route::middleware(['auth:sanctum', 'verified',])->group(function () {
     Route::get('/tickets',[PosController::class, 'tickets'])->name('tickets');
     Route::get('/test',[PosController::class, 'test']);
     Route::get('/report/day',[ReportsController::class, 'getDay'])->name('report.day');
-
+    Route::get('/posedit/{id}',[PosController::class, 'edit'])->name('pos.edit');
 
         //administracion
         Route::resource('/roles', RolesController::class);

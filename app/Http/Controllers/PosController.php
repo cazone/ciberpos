@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
-use App\Models\Product;
-use App\Models\Category;
 use App\Models\Invoice;
-use App\Models\TicketSetup;
-use Illuminate\Http\Request;
-use Codedge\Fpdf\Fpdf\Fpdf;
+use App\Models\Product;
 use Twilio\Rest\Client;
+use App\Models\Category;
+use App\Models\TicketSetup;
+use Codedge\Fpdf\Fpdf\Fpdf;
+use Illuminate\Http\Request;
+use App\Models\InvoiceDetail;
 
 class PosController extends Controller
 {
@@ -164,5 +165,13 @@ class PosController extends Controller
     $this->fpdf->Output("I","Ticket_".$id.".pdf",true);
 
         exit;
+    }
+
+    public function edit($id)
+    {
+        return Inertia::render('Pos/Edit',[
+          'invoicedetails' => InvoiceDetail::with('product')->where('invoice_id', $id)->get(),
+
+        ]);
     }
 }
