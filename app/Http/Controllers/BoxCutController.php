@@ -53,9 +53,12 @@ class BoxCutController extends Controller
      }
     public function resume (){
 
-            $sale     = Sale::where('user_id', auth()->user()->id)->whereDay('created_at', '=', date('d'))->sum('total');
-            $invoice  = Invoice::where('user_id', auth()->user()->id)->whereDay('created_at', '=', date('d'))->sum('total');
-            $outlay   = Outlay::where('user_id', auth()->user()->id)->whereDay('created_at', '=', date('d'))->sum('total');
+            $sale     = Sale::where('user_id', auth()->user()->id)
+            ->whereMonth('created_at', '=', date('m'))->whereDay('created_at', '=', date('d'))->sum('total');
+            $invoice  = Invoice::where('user_id', auth()->user()->id)
+            ->whereMonth('created_at', '=', date('m'))->whereDay('created_at', '=', date('d'))->sum('total');
+            $outlay   = Outlay::where('user_id', auth()->user()->id)
+            ->whereMonth('created_at', '=', date('m'))->whereDay('created_at', '=', date('d'))->sum('total');
 
 
 
