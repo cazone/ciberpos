@@ -32,14 +32,14 @@
             <el-table-column prop="name_product" label="Nombre" />
             <el-table-column prop="code" label="Codigo" >
                 <template #default="scope">
-                    <span class="badges bg-lightgreen">{{ scope.row.code }}</span>
+                    <span class="badges bg-lightgreen"><h3>{{ scope.row.code }}</h3></span>
                 </template>
 
 
             </el-table-column>
             <el-table-column prop="price" label="Precio" >
                 <template #default="scope">
-                    <span class="badges bg-lightgrey">{{ numeralFormat(scope.row.price, "$ 0,0[.]00" ) }}</span>
+                    <span class="badges bg-lightgrey"><h3>{{ numeralFormat(scope.row.price, "$ 0,0[.]00" ) }}</h3></span>
                 </template>
 
 
