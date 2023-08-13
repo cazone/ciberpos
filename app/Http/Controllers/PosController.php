@@ -90,7 +90,7 @@ class PosController extends Controller
     $this->fpdf->Ln(3);
     $this->fpdf->Cell(0,5,utf8_decode("----------------------------------------------------------"),0,0,'C');
     $this->fpdf->Ln(3);
-    $this->fpdf->SetFont('Arial','B',6);
+    $this->fpdf->SetFont('Arial','B',10);
    foreach ($invoice->invoiceDetails as $key => $detail) {
         $this->fpdf->MultiCell(0,4,utf8_decode(strtoupper($detail->product->name_product)),0,'L',false);
         $this->fpdf->Cell(10,4,utf8_decode($detail->amount),0,0,'C');
@@ -99,7 +99,7 @@ class PosController extends Controller
         $this->fpdf->Cell(28,4,utf8_decode("$".number_format($detail->total, 2, '.', ',')),0,0,'C');
         $this->fpdf->Ln(4);
     }
-    $this->fpdf->SetFont('Arial','B',8);
+    $this->fpdf->SetFont('Arial','B',10);
     /*----------  Detalles de la tabla  ----------*/
     // $this->fpdf->MultiCell(0,4,utf8_decode("Nombre de producto a vender"),0,'C',false);
     // $this->fpdf->Cell(10,4,utf8_decode("7"),0,0,'C');
@@ -157,7 +157,7 @@ class PosController extends Controller
     // $this->fpdf->Cell(23,5,utf8_decode("$7000.00"),0,0,'R');
 
     $this->fpdf->Ln(10);
-    $this->fpdf->SetFont('Arial','B',7);
+    $this->fpdf->SetFont('Arial','B',10);
     $this->fpdf->MultiCell(0,5,utf8_decode($ticket->text_footer),0,'C',false);
     $this->fpdf->SetFont('Arial','B',10);
     $this->fpdf->Cell(0,7,utf8_decode($ticket->text_thanks),'',0,'C');
