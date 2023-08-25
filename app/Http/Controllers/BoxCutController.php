@@ -24,7 +24,8 @@ class BoxCutController extends Controller
         //
     }
 
-    public function sendWhatsapp( $message){
+    public function sendWhatsapp($message)
+    {
         $user = ['150327013', '6071627574'];
         foreach ($user as $key => $value) {
             $this->makeRequest('GET', '/sendMessage', [
@@ -34,43 +35,44 @@ class BoxCutController extends Controller
             ]);
         }
 
-// dd();
+        // dd();
 
-//             $twilio = new Client('AC0bc253ba36563231d08d3ecf1c52d534', 'de480c3dc19e9704550050479956c736');
-//             $user = ['+525585493795', '+525530202888'
-//         ];
-//         foreach ($user as $key => $value) {
-//             $twilio->messages
-//                                     ->create("whatsapp:".$value, // to
-//                                        [
-//                                            "from" => "whatsapp:+12542683908",
-//                                            "body" =>  $message
-//                                        ]
-//                               );
+        //             $twilio = new Client('AC0bc253ba36563231d08d3ecf1c52d534', 'de480c3dc19e9704550050479956c736');
+        //             $user = ['+525585493795', '+525530202888'
+        //         ];
+        //         foreach ($user as $key => $value) {
+        //             $twilio->messages
+        //                                     ->create("whatsapp:".$value, // to
+        //                                        [
+        //                                            "from" => "whatsapp:+12542683908",
+        //                                            "body" =>  $message
+        //                                        ]
+        //                               );
 
-//                             }
+        //                             }
 
-     }
-    public function resume (){
+    }
+    public function resume()
+    {
 
-            $sale     = Sale::where('user_id', auth()->user()->id)
+        $sale     = Sale::where('user_id', auth()->user()->id)
             ->whereMonth('created_at', '=', date('m'))->whereDay('created_at', '=', date('d'))->sum('total');
-            $invoice  = Invoice::where('user_id', auth()->user()->id)
+        $invoice  = Invoice::where('user_id', auth()->user()->id)
             ->whereMonth('created_at', '=', date('m'))->whereDay('created_at', '=', date('d'))->sum('total');
-            $outlay   = Outlay::where('user_id', auth()->user()->id)
+        $outlay   = Outlay::where('user_id', auth()->user()->id)
             ->whereMonth('created_at', '=', date('m'))->whereDay('created_at', '=', date('d'))->sum('total');
 
 
 
-            $result =[
-                'invoice'   => $invoice,
-                'outlay' => $outlay,
-                'sale'   => $sale,
-                'total'  => $sale + $invoice - $outlay
+        $result = [
+            'invoice'   => $invoice,
+            'outlay' => $outlay,
+            'sale'   => $sale,
+            'total'  => $sale + $invoice - $outlay
 
-            ];
+        ];
 
-            return $this->sendResponse($result, 'Resumen successfully.');
+        return $this->sendResponse($result, 'Resumen successfully.');
     }
     /**
      * Show the form for creating a new resource.
@@ -79,7 +81,6 @@ class BoxCutController extends Controller
      */
     public function create()
     {
-
     }
 
     /**
@@ -95,34 +96,54 @@ class BoxCutController extends Controller
 
         ]);
 
-        $boxcut = BoxCut::create([
-            'sale' => $request->sale,
-            'invoice' => $request->invoice,
-            'outlay'    => $request->outlay,
-            'cash'  => $request->cash,
-            'total'     => $request->total,
-            'user_id'  => auth()->user()->id,
-        ]);
+        $boxcutByUser = BoxCut::where('user_id', '=', auth()->user()->id)
+            ->whereMonth('created_at', '=', date('m'))
+            ->whereDay('created_at', '=', date('d'))->get();
+
+
+        if ($boxcutByUser->count() == 0) {
+            $boxcut = BoxCut::create([
+                'sale' => $request->sale,
+                'invoice' => $request->invoice,
+                'outlay'    => $request->outlay,
+                'cash'  => $request->cash,
+                'total'     => $request->total,
+                'user_id'  => auth()->user()->id,
+            ]);
+        } else {
+            $boxcut =   $boxcutByUser->first()->update([
+                'sale' => $request->sale,
+                'invoice' => $request->invoice,
+                'outlay'    => $request->outlay,
+                'cash'  => $request->cash,
+                'total'     => $request->total,
+                'user_id'  => auth()->user()->id,
+            ]);
+        }
+
+
+
 
         $copiasTotal = InvoiceDetail::with('product', 'product.category')
-        ->whereHas('product.category', function ($query) {
-            return $query->where('name', '=', 'Copias');
-        })
+            ->whereHas('product.category', function ($query) {
+                return $query->where('name', '=', 'Copias');
+            })
 
-        ->where('user_id', auth()->user()->id)->whereDay('created_at', '=', date('d'))->sum('total');
+            ->where('user_id', auth()->user()->id)->whereDay('created_at', '=', date('d'))->sum('total');
 
         $user = auth()->user()->name;
-        $total= $request->sale + $request->invoice   - $request->outlay;
-        $text = sprintf("Hola, este es el corte de %s \n Día: %s \n Venta POS: $%s \n Venta directa: $%s \n Gastos : $%s \n Copias : $%s \n Total : $%s \n Total  Efectivo: $%s",
-        $user,
-        date('d/m/Y'),
-        $request->invoice ,
-        $request->sale,
-        $request->outlay,
-        $copiasTotal,
-        $total -$copiasTotal,
-        $request->cash
-    );
+        $total = $request->sale + $request->invoice   - $request->outlay;
+        $text = sprintf(
+            "Hola, este es el corte de %s \n Día: %s \n Venta POS: $%s \n Venta directa: $%s \n Gastos : $%s \n Copias : $%s \n Total : $%s \n Total  Efectivo: $%s",
+            $user,
+            date('d/m/Y'),
+            $request->invoice,
+            $request->sale,
+            $request->outlay,
+            $copiasTotal,
+            $total - $copiasTotal,
+            $request->cash
+        );
         $this->sendWhatsapp($text);
 
         return $this->sendResponse($boxcut, 'BoxCut successfully.');
