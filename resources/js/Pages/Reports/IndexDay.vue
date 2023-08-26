@@ -62,9 +62,19 @@ const data1 = ref({
   labels: usePage().props.value.labels,
   datasets: [
     {
-      label: 'Ventas',
+      label: 'Efectivo',
       backgroundColor: '#2ECC71',
       data:  usePage().props.value.data
+    },
+    {
+      label: 'Sistema',
+      backgroundColor: '#3498DB',
+      data:  usePage().props.value.sale
+    },
+    {
+      label: 'Compras',
+      backgroundColor: '#FF5733',
+      data:  usePage().props.value.outlay
     }
   ]})
 

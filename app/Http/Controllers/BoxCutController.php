@@ -6,10 +6,11 @@ use App\Models\Sale;
 use App\Models\BoxCut;
 use App\Models\Outlay;
 use App\Models\Invoice;
-use App\Models\InvoiceDetail;
 use Twilio\Rest\Client;
 use Illuminate\Http\Request;
+use App\Models\InvoiceDetail;
 use App\Traits\TelegramServices;
+use Illuminate\Support\Facades\DB;
 
 class BoxCutController extends Controller
 {
@@ -21,7 +22,13 @@ class BoxCutController extends Controller
      */
     public function index()
     {
-        //
+        $boxCut = BoxCut::with('user')->select('id', DB::raw('sum(cash) as cash'),DB::raw('sum(sale) as sale'),
+        DB::raw('sum(outlay) as outlay'), DB::raw('sum(invoice) as invoice'),'created_at', 'user_id')
+        ->groupBy('created_at', 'id', 'user_id')->orderBy('created_at', 'desc')->get();
+
+        return $this->sendResponse($boxCut, 'BoxCut successfully.');
+
+
     }
 
     public function sendWhatsapp($message)
