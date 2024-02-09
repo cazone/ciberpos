@@ -19,7 +19,9 @@ class ShoppingController extends Controller
     {
         $products = Shopping::with('product')
         ->whereDay('created_at', '=', date('d'))
-        ->where('user_id',auth()->user()->id)->get();
+        ->where('user_id',auth()->user()->id)
+        ->orderBy('id','desc')
+        ->get();
         return Inertia::render('Shopping/Index',[
             'products'=>$products,
 

@@ -217,7 +217,7 @@ const form = useForm({
 
 onMounted(() => {
   refSearch.value.focus();
-  console.log(productStore.currenttRow);
+
 });
 
 watch(currentRow, (val) => {
