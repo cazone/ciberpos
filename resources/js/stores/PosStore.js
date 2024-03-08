@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
 import { ref, watch, onMounted, watchEffect } from 'vue';
-import { useStorageAsync } from '@vueuse/core';
+import { set, useStorageAsync } from '@vueuse/core';
 import { ElMessage } from 'element-plus';
 import { t } from 'element-plus/lib/locale';
 export const usePosStore = defineStore( 'pos', () => {
@@ -89,48 +89,60 @@ export const usePosStore = defineStore( 'pos', () => {
         products.value.splice( index, 1 );
     };
     const searchProduct = async () => {
+
         let searchArr = valSearch.value.split( '*' );
 
-        loading.value = true;
-        const { data } = await axios.get( route( 'search' ), {
-            params: {
-                query: searchArr[ 0 ]
+
+        try {
+            loading.value = true;
+            const { data } = await axios.get( route( 'search' ), {
+                params: {
+                    query: searchArr[ 0 ]
+                }
+            } );
+            if ( data.length == 0 ) {
+                loading.value = false;
+                ElMessage.error( 'Oops, No se encontro el producto.' );
+                return;
+
             }
-        } );
-        if ( data.length == 0 ) {
+
+            var porcent = 0;
+            if ( data[ 0 ].category.discount > 0 ) {
+                porcent = data[ 0 ].category.discount;
+
+            }
+
+
+            const amount = searchArr[ 1 ] ? parseInt( searchArr[ 1 ] ) : 1;
+            const discountPorcent = porcent / 100;
+            const discount = ( data[ 0 ].price * amount ) * discountPorcent;
+
+            const tempProducts = {
+                id: data[ 0 ].id,
+                name_product: data[ 0 ].name_product,
+                price: data[ 0 ].price,
+                amount: amount,
+                discount: discount,
+                discountPorcent: discountPorcent,
+                subtotal: data[ 0 ].price * amount,
+                total: data[ 0 ].price * amount - discount
+            };
+
+            await products.value.push( tempProducts );
+            products.value.reverse(); // Invertir la lista de productos
+            valSearch.value = '';
             loading.value = false;
-            ElMessage.error( 'Oops, No se encontro el producto.' );
-            return;
+
+
+
+
+        } catch (error) {
+            ElMessage.error( 'Oops, Algo salio mal.' );
+            loading.value = false;
 
         }
 
-        var porcent = 0;
-        if ( data[ 0 ].category.discount > 0 ) {
-            porcent = data[ 0 ].category.discount;
-
-        }
-
-
-        const amount = searchArr[ 1 ] ? parseInt( searchArr[ 1 ] ) : 1;
-        const discountPorcent = porcent / 100;
-        const discount = ( data[ 0 ].price * amount ) * discountPorcent;
-
-        const tempProducts = {
-            id: data[ 0 ].id,
-            name_product: data[ 0 ].name_product,
-            price: data[ 0 ].price,
-            amount: amount,
-            discount: discount,
-            discountPorcent: discountPorcent,
-            subtotal: data[ 0 ].price * amount,
-            total: data[ 0 ].price * amount - discount
-        };
-
-        await products.value.push( tempProducts );
-        products.value.reverse(); // Invertir la lista de productos
-
-        loading.value = false;
-        valSearch.value = '';
     };
 
     const saveSetInvoice = async ( data ) => {

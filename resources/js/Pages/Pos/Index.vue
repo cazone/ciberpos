@@ -11,6 +11,7 @@
         <el-header>
           <input
             ref="refSearch"
+            :disabled="posStore.loading"
             v-model="posStore.valSearch"
             @keyup.enter="posStore.searchProduct"
             type="text"
@@ -125,6 +126,7 @@
                     <h4>
                       Descuentos
                       <input
+
                         v-model="posStore.descuento"
                         style="width: 250px"
                         type="text"
