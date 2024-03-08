@@ -13,7 +13,7 @@
             ref="refSearch"
             :disabled="posStore.loading"
             v-model="posStore.valSearch"
-            @keyup.enter="posStore.searchProduct"
+            @keyup.enter="searchProduct"
             type="text"
             placeholder="Por favor, ingresa clave o codigo de barra del producto (F1)"
             key=""
@@ -253,6 +253,11 @@ const refSearch = ref(null);
 onMounted(() => {
   refSearch.value.focus();
 });
+
+const searchProduct = async() => {
+ await  posStore.searchProduct();
+ refSearch.value.focus();
+};
 
 const addFavorite = (data) => {
   posStore.saveSetInvoice(data);

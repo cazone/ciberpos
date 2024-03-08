@@ -106,6 +106,20 @@ export const usePosStore = defineStore( 'pos', () => {
                 return;
 
             }
+                //buscar e porducto  en products s
+            var found = products.value.find( function ( element ) {
+                return element.id == data[ 0 ].id;
+            }
+            );
+            if ( found ) {
+                found.amount += searchArr[ 1 ] ? parseInt( searchArr[ 1 ] ) : 1;
+                found.subtotal = found.price * found.amount;
+                found.discount = found.price * found.amount * found.discountPorcent;
+                found.total = found.price * found.amount - found.discount;
+                loading.value = false;
+                valSearch.value = '';
+                return;
+            }
 
             var porcent = 0;
             if ( data[ 0 ].category.discount > 0 ) {
@@ -154,6 +168,7 @@ export const usePosStore = defineStore( 'pos', () => {
             porcent = data.category.discount;
 
         }
+
         const amount = data.amount ? data.amount : 1;
         const discountPorcent = porcent / 100;
         const discount = ( data.price * amount ) * discountPorcent;
