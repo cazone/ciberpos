@@ -162,6 +162,7 @@ export const usePosStore = defineStore( 'pos', () => {
     const saveSetInvoice = async ( data ) => {
         if ( data == null ) return;
         loading.value = true;
+        console.log( data );
 
         var porcent = 0;
         if ( data.category.discount > 0 ) {
