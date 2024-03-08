@@ -17,6 +17,7 @@
 v-model="outlayStore.pay"
 placeholder="Por favor ingresa monto del gasto"
 @keyup.enter="outlayStore.saveOutlay"
+:disabled="outlayStore.loading"
 
 >
 
@@ -25,7 +26,7 @@ placeholder="Por favor ingresa monto del gasto"
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="outlayStore.centerDialogVisible = false">Cancel</el-button>
-        <el-button   v-loading="outlayStore.loading" type="primary" @click="outlayStore.saveOutlay">
+        <el-button  :disabled="outlayStore.loading" v-loading="outlayStore.loading" type="primary" @click="outlayStore.saveOutlay">
           Guardar
         </el-button>
       </span>

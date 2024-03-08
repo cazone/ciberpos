@@ -19,13 +19,17 @@ export const useSaleStore = defineStore('sale', () => {
             name_sale: name.value,
             total: pay.value
 
-        }).catch(error => {
+        }).then( function ( response ) {
+            centerDialogVisible.value = false;
+            loading.value = false;
+        })
+
+        .catch(error => {
             loading.value = false;
             ElMessage.error('Oops, No se puede guaradar.')
 
         });
-        centerDialogVisible.value = false;
-        loading.value = false;
+
     }
     // const refInput = (val) => {
     //     refNameOutlay.value = val;

@@ -16,7 +16,7 @@
         type="numbre"
 v-model="saleStore.pay"
 placeholder="Por favor ingresa monto vendido"
-
+:disabled="saleStore.loading"
 @keyup.enter="saleStore.save"
 >
 
@@ -26,7 +26,7 @@ placeholder="Por favor ingresa monto vendido"
       <span class="dialog-footer">
         <el-button @click="saleStore.centerDialogVisible = false">Cancel</el-button>
 
-        <el-button       v-loading="saleStore.loading" type="primary" @click="saleStore.save">
+        <el-button   :disabled="saleStore.loading"  v-loading="saleStore.loading" type="primary" @click="saleStore.save">
           Guardar
         </el-button>
       </span>

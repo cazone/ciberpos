@@ -19,13 +19,18 @@ export const useOutlayStore = defineStore('outlay', () => {
             name_outlay: name.value,
             total: pay.value
 
+        }).then(response => {
+            loading.value = false;
+            ElMessage.success('Gasto Guardado');
+            centerDialogVisible.value = false;
         }).catch(error => {
             loading.value = false;
+            centerDialogVisible.value = false;
             ElMessage.error('Oops, No se puede guaradar.')
 
+
         });
-        centerDialogVisible.value = false;
-        loading.value = false;
+
     }
 
     const openDialog =  async () => {

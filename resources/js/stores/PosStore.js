@@ -192,7 +192,8 @@ export const usePosStore = defineStore( 'pos', () => {
     };
 
     const saveInvoice = async () => {
-        axios.post( route( 'invoice.store' ), {
+        loading.value = true;
+      await   axios.post( route( 'invoice.store' ), {
             products: products.value,
             total: total.value,
             discount: discount.value,
@@ -208,10 +209,12 @@ export const usePosStore = defineStore( 'pos', () => {
                 products.value = [];
                 centerDialogVisible.value = false;
             }
+            loading.value = false;
         } ).catch( function ( error ) {
 
             ElMessage.error( 'Oops, Algo salio mal.' );
             centerDialogVisible.value = false;
+            loading.value = false;
         } );
 
 

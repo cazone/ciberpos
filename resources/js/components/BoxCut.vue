@@ -45,6 +45,7 @@
                     v-loading="boxCutStore.loading"
                     type="primary"
                     @click="boxCutStore.save"
+                    :disabled="boxCutStore.loading"
                 >
                     Guardar
                 </el-button>

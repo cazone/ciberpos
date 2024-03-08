@@ -209,7 +209,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="posStore.centerDialogVisible = false">Cancel</el-button>
-          <el-button type="primary" @click="posStore.saveInvoice"> Confirmar </el-button>
+          <el-button :disabled="posStore.loading"   type="primary" @click="posStore.saveInvoice"> Confirmar </el-button>
         </span>
       </template>
     </el-dialog>

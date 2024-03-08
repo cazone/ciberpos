@@ -43,13 +43,16 @@ export const useBoxCutStore = defineStore('boxCut', () => {
             'total' : totalUser.value
 
 
+        }).then(response => {
+            centerDialogVisible.value = false;
+            loading.value = false;
+
         }).catch(error => {
             loading.value = false;
             ElMessage.error('Oops, No se puede guaradar.')
 
         });
-        centerDialogVisible.value = false;
-        loading.value = false;
+
     }
     // const refInput = (val) => {
     //     refNameOutlay.value = val;
